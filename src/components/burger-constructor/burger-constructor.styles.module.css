@@ -1,0 +1,13 @@
+.table_el {
+    display: grid;
+    grid-template-columns: repeat(2, 272px);
+    gap: 32px 24px;
+    margin-bottom: 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.left_align_text {
+    text-align: left;
+}
+
