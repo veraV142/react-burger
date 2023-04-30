@@ -9,8 +9,10 @@ function App() {
   return (
     <div className="App">
         <AppHeader />
-        <div style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'space-around', width: '70%', marginRight: '15%', marginLeft: '15%' }}>
-          <BurgerConstructor allData={data} />
+        <div className={`main_control`} >
+          <div className={`mr-10`}>
+            <BurgerConstructor allData={data} />
+          </div>
           <BurgerIngredients allData={data} />
         </div>
     </div>

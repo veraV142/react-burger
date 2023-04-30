@@ -38,19 +38,20 @@ class BurgerConstructorTabPanel extends React.Component {
 class BurgerConstructorElement extends React.Component 
 {
     render() {
+
         return (
-            <div>
+            <div className={`ml-4 mb-8 ${styles.constructor_el}`} >
                 <Counter count={1} size="default" />
+                <img src={this.props.data.image} alt={this.props.data.name} className="ml-4 mr-4 mt-6" />
 
-                <img src={this.props.data.image} alt={this.props.data.name} className="ml-4 mr-4" />
-                <div styles={{justifyContent:'center',   display:'flex', alignItems: 'center', flexDirection: 'row'}}>
-                    <p className="mr-2 text text_type_digits-default">{this.props.data.price}</p>
-                    <CurrencyIcon type="primary" />
+                <div className={`mt-1 mb-1 ${styles.price_for_icon}`}>
+                    <p className={`mr-4 text text_type_digits-default`}>{this.props.data.price}</p>
+                    <CurrencyIcon type="primary"/>
                 </div>
-
-                <h2 className={`text text_type_main-default ${styles.name}`}>
+ 
+                <p className={`text text_type_main-default ${styles.name_ing}`}>
                     {this.props.data.name}
-                </h2>
+                </p>
             </div>
         );
     }
@@ -64,34 +65,34 @@ class BurgerConstructorListElements extends React.Component
             document.body.scrollHeight, document.documentElement.scrollHeight,
             document.body.offsetHeight, document.documentElement.offsetHeight,
             document.body.clientHeight, document.documentElement.clientHeight
-          ) - 250;
+          ) - 310;
 
         return (
-            <div className='mr-10' style={{overflowY: 'auto', maxHeight: `${scrollHeight}px`, scrollBarColor: '#6969dd #e0e0e0', scrollbarWidth: 'thin'}}>
-                <h2 id='t0' align='left' className="text text_type_main-medium mb-6">
+            <div className='mr-10' style={{overflowY: 'auto', overflowX: 'hidden', maxHeight: `${scrollHeight}px`, scrollBarColor: '#6969dd #e0e0e0', scrollbarWidth: 'thin'}}>
+                <h2 id='t0' align='left' className="mb-6 mt-10 text text_type_main-medium">
                     Булки
                 </h2>
-                <div  className={`mt-6 ml-4 ${styles.table_el}`} >
+                <div  className={`mt-6 ml-4 mr-4 ${styles.table_el}`} >
                     {this.props.bunList.map((elem) => {
                         return (
                             <BurgerConstructorElement data={elem} />
                         );
                     })}
                 </div>
-                <h2 id='t1' align='left' className="text text_type_main-medium mb-6">
+                <h2 id='t1' align='left' className="mb-6 mt-2 text text_type_main-medium mb-6">
                     Соусы
                 </h2>
-                <div className={`mt-6 ml-4 ${styles.table_el}`} >
+                <div className={`mt-6 ml-4 mr-4 ${styles.table_el}`} >
                     {this.props.sauceList.map((elem) => {
                         return (
                             <BurgerConstructorElement data={elem} />
                         );
                     })}
                 </div>
-                <h2 id='t2' align='left' className="text text_type_main-medium mb-6">
+                <h2 id='t2' align='left' className="mb-6 mt-2 text text_type_main-medium mb-6">
                     Начинки
                 </h2>
-                <div className={`mt-6 ml-4 ${styles.table_el}`}>
+                <div className={`mt-6 ml-4 mr-4 ${styles.table_el}`}>
                     {this.props.fillingList.map((elem) => {
                         return (
                             <BurgerConstructorElement data={elem} />
@@ -121,13 +122,12 @@ export default class BurgerConstructor extends React.Component {
 
         return (
             <div>
-                <p align='left' className='mt-10 mb-5 text text_type_digits-medium'>
+                <p align='left' className={`mt-10 mb-5 text text_type_main-large`}>
                     Соберите бургер
                 </p>
                 <BurgerConstructorTabPanel selectTab={(currTab) => {
                     let elemForScroll = document.getElementById(`t${currTab}`);
                     elemForScroll.scrollIntoView();
-                    //this.setState({ selectedTab: currTab }) 
                 }} 
                 />
                 <BurgerConstructorListElements bunList={bunList} sauceList={sauceList} fillingList={fillingList} />

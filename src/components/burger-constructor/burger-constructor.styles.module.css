@@ -1,6 +1,6 @@
 .table_el {
     display: grid;
-    grid-template-columns: repeat(2, 272px);
+    grid-template-columns: repeat(2, 270px);
     gap: 32px 24px;
     margin-bottom: 0;
     list-style-type: none;
@@ -11,3 +11,17 @@
     text-align: left;
 }
 
+.constructor_el {
+    position: relative;
+    min-height: 208px;
+}
+
+.price_for_icon {
+    display: flex;
+    justify-content: center;
+}
+
+.name_ing {
+    display: block;
+    text-align: center;
+}
