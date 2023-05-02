@@ -1,6 +1,7 @@
 import React from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.styles.module.css'
+import PropTypes from 'prop-types'
 
 class Checkout  extends React.Component {
     render() {
@@ -18,40 +19,60 @@ class Checkout  extends React.Component {
     }
 }
 
+Checkout.propTypes = {
+    sum: PropTypes.number.isRequired
+}
+
 export default class BurgerIngredients extends React.Component 
 {
     render() 
     {
-        let dataLen = Object.keys(this.props.allData).length;
+        const dataLen = Object.keys(this.props.allData).length;
         let firstEl = -1; let lastEl = -1;
-        if (dataLen > 0)
-        {
-            firstEl = this.props.allData[0];
-            lastEl = this.props.allData[dataLen - 1];
-        } 
+        const centerEls = [];
 
-        let scrollHeight = Math.max(
+        if (dataLen > 3)
+            for (let index = 0; index < dataLen; index++) 
+            {
+                let element = this.props.allData[index];
+                if (index === 0) 
+                    firstEl = element;
+                else if (index === dataLen - 1) 
+                    lastEl = element;
+                else {
+                    centerEls.push(element);
+                }
+            }
+        else {
+            return (
+                <div>Данные некорректны</div>
+            );
+        }
+
+        const scrollHeight = Math.max(
             document.body.scrollHeight, document.documentElement.scrollHeight,
             document.body.offsetHeight, document.documentElement.offsetHeight,
             document.body.clientHeight, document.documentElement.clientHeight
-          ) - 350;
+          ) - 550;
 
         return (
             <div className={`mt-25 ${styles.panel}`}>
-                <div className={`ml-4 mr-4 ${styles.menu}`} 
+
+                <div className={`mt-2 mb-4 mr-4 pr-4`}>
+                    <ConstructorElement
+                        type={'top'}
+                        isLocked={true}
+                        text={`${firstEl.name} (верх)`}
+                        price={firstEl.price}
+                        thumbnail={firstEl.image}
+                    />
+                </div>
+                <div className={`${styles.menu}`} 
                     style={{overflowY: 'auto', maxHeight: `${scrollHeight}px`, scrollBarColor: '#6969dd #e0e0e0', scrollbarWidth: 'thin' }}>
-                    {this.props.allData.map((elem) => {
-
-                        let typeCE = undefined;
-                        if (firstEl._id === elem._id)
-                            typeCE = "top";
-                        if (lastEl._id === elem._id)
-                            typeCE = "bottom";
-
+                    {centerEls.map((elem) => {
                         return (
-                            <div className={`mt-2 mb-2 mr-4`}>
+                            <div className={`mt-2 mb-2 pr-4 `} key={elem._id}>
                                 <ConstructorElement
-                                    type={typeCE}
                                     isLocked={true}
                                     text={elem.name}
                                     price={elem.price}
@@ -62,8 +83,21 @@ export default class BurgerIngredients extends React.Component
                         );
                     })}
                 </div>
+                <div className={`mt-4 mb-2 mr-4 pr-4`}>
+                    <ConstructorElement
+                        type={'bottom'}
+                        isLocked={true}
+                        text={`${lastEl.name} (низ)`}
+                        price={lastEl.price}
+                        thumbnail={lastEl.image}
+                    />
+                </div>
                 <Checkout sum={610} />
             </div>
         );
     }
+}
+
+BurgerIngredients.propTypes = {
+    allData: PropTypes.array.isRequired
 }
