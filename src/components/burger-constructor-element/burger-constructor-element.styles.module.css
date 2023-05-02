@@ -1,0 +1,14 @@
+.constructor_el {
+    position: relative;
+    min-height: 208px;
+}
+
+.price_for_icon {
+    display: flex;
+    justify-content: center;
+}
+
+.name_ing {
+    display: block;
+    text-align: center;
+}
