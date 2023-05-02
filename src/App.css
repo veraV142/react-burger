@@ -1,17 +1,5 @@
-.main_control {
-  display: flex; 
-  align-items: stretch;
-  justify-content: center; 
-  width: 70%; 
-  margin-right: 15%; 
-  margin-left: 15%
-}
-
 .App {
   text-align: center;
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
 }
 
 .App-logo {
