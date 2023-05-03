@@ -2,6 +2,7 @@ import React from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.styles.module.css'
 import PropTypes from 'prop-types'
+import { dataType } from '../../data';
 
 class Checkout  extends React.Component {
     render() {
@@ -99,5 +100,5 @@ export default class BurgerIngredients extends React.Component
 }
 
 BurgerIngredients.propTypes = {
-    allData: PropTypes.array.isRequired
+    allData: PropTypes.arrayOf(dataType)
 }
