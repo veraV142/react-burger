@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './burger-constructor-list-elements.styles.module.css'
 import PropTypes from 'prop-types'
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element.component'
-
+import { dataType } from '../../data';
 
 export default class BurgerConstructorListElements extends React.Component 
 {
@@ -50,12 +50,6 @@ export default class BurgerConstructorListElements extends React.Component
         );
     }
 }
-
-const dataType = PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-})
 
 BurgerConstructorListElements.propTypes = {
     bunList: PropTypes.arrayOf(dataType),

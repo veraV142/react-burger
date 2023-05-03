@@ -1,7 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import BurgerConstructorTabPanel from '../burger-constructor-tab-panel/burger-constructor-tab-panel.component'
 import BurgerConstructorListElements from '../burger-constructor-list-elements/burger-constructor-list-elements.component'
+import { dataType } from '../../data';
 
 export default class BurgerConstructor extends React.Component {
     render() {
@@ -26,5 +27,5 @@ export default class BurgerConstructor extends React.Component {
 }
 
 BurgerConstructor.propTypes = {
-    allData: PropTypes.array.isRequired
+    allData: PropTypes.arrayOf(dataType),
 }
