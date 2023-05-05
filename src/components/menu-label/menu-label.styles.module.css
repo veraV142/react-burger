@@ -1,0 +1,14 @@
+.label {
+    width: 250px;
+    justify-content: flex-start;
+    display: flex;
+    align-items: stretch;
+}
+
+.active_text {
+    color: #dcdcdd
+}
+
+.unactive_text {
+    color: #363646
+}
