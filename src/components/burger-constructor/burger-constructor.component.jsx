@@ -27,5 +27,5 @@ export default class BurgerConstructor extends React.Component {
 }
 
 BurgerConstructor.propTypes = {
-    allData: PropTypes.arrayOf(dataType),
+    allData: PropTypes.arrayOf(dataType).isRequired,
 }
