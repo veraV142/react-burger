@@ -1,0 +1,23 @@
+.prm {
+    display: grid;
+    justify-items: center;
+}
+
+.prms {
+    display: grid;
+    grid-template-columns: 180px repeat(3, 110px);
+    column-gap: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0; 
+}
+
+.in_det_panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img_sz {
+    width: 480px;
+}

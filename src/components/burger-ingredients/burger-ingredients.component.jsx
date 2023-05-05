@@ -1,23 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.styles.module.css'
 import PropTypes from 'prop-types'
 import { dataType } from '../../data';
+import OrderDetails from '../order-details/order-details.component'
+import Modal from '../modal/modal.component'
 
-class Checkout  extends React.Component {
-    render() {
-        return (
-            <div className={`mt-10 mr-8 ${styles.checkout_st}`}>
-                <p className={`mt-2 text text_type_digits-medium`}>{this.props.sum}</p>
-                <div className={`mr-10 mt-4`}>
-                    <CurrencyIcon type="primary" />
-                </div>
-                <Button htmlType="button" type="primary" size="medium">
-                    Оформление заказа
-                </Button>
+const Checkout = (props) =>  
+{
+    const [showedOrder, showOrder] = useState({ selected: false });
+
+    return (
+        <div className={`mt-10 mr-8 ${styles.checkout_st}`}>
+            <p className={`mt-2 text text_type_digits-medium`}>{props.sum}</p>
+            <div className={`mr-10 mt-4`}>
+                <CurrencyIcon type="primary" />
             </div>
-        );
-    }
+            <Button htmlType="button" type="primary" size="medium" onClick={() => showOrder({selected: true, orderNum: '034536'})}>
+                Оформление заказа
+            </Button>
+            {
+                showedOrder.selected && (
+                    <Modal header={'Детали ингредиента'} showed={showedOrder.selected} onClose={() => showOrder({selected: false})}>
+                        <OrderDetails orderNum={showedOrder.orderNum}/>
+                    </Modal>
+                )
+            }
+        </div>
+    );
+    
 }
 
 Checkout.propTypes = {

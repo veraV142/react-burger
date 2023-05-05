@@ -15,6 +15,13 @@ export const dataType = PropTypes.shape({
    __v: PropTypes.number.isRequired,
 })
 
+export const selectedIngredient = PropTypes.shape({
+   selected: PropTypes.bool.isRequired,
+   ingredient: dataType,
+})
+
+export const dataUrl = 'https://norma.nomoreparties.space/api/ingredients';
+
 export const data = [
     {
        "_id":"60666c42cc7b410027a1a9b1",

@@ -22,7 +22,7 @@ export default class BurgerConstructorListElements extends React.Component
                 <div  className={`mt-6 ml-4 mr-4 ${styles.table_el}`} >
                     {this.props.bunList.map((elem) => {
                         return (
-                            <BurgerConstructorElement key={elem._id} data={elem} />
+                            <BurgerConstructorElement key={elem._id} data={elem} showIngredient={this.props.showIngredient}/>
                         );
                     })}
                 </div>
@@ -32,7 +32,7 @@ export default class BurgerConstructorListElements extends React.Component
                 <div className={`mt-6 ml-4 mr-4 ${styles.table_el}`} >
                     {this.props.sauceList.map((elem) => {
                         return (
-                            <BurgerConstructorElement key={elem._id} data={elem} />
+                            <BurgerConstructorElement key={elem._id} data={elem} showIngredient={this.props.showIngredient}/>
                         );
                     })}
                 </div>
@@ -42,7 +42,7 @@ export default class BurgerConstructorListElements extends React.Component
                 <div className={`mt-6 ml-4 mr-4 ${styles.table_el}`}>
                     {this.props.mainList.map((elem) => {
                         return (
-                            <BurgerConstructorElement key={elem._id} data={elem} />
+                            <BurgerConstructorElement key={elem._id} data={elem} showIngredient={this.props.showIngredient} />
                         );
                     })}
                 </div>

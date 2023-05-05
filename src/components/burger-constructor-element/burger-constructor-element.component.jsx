@@ -8,7 +8,7 @@ export default class BurgerConstructorElement extends React.Component
     render() {
 
         return (
-            <div className={`ml-4 mb-8 ${styles.constructor_el}`} >
+            <div className={`ml-4 mb-8 ${styles.constructor_el}`} onClick={() => this.props.showIngredient({selected:true, ingredient: this.props.data})} >
                 <Counter count={1} size="default" />
                 <img src={this.props.data.image} alt={this.props.data.name} className="ml-4 mr-4 mt-6" />
 
