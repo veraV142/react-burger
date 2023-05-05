@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './order-details.styles.module.css'
+import PropTypes from 'prop-types'
 
 const OrderDetails = (props) => 
 {
@@ -14,6 +15,10 @@ const OrderDetails = (props) =>
             <p className={`mb-30 text text_type_main-small text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
         </div>
     )
+}
+
+OrderDetails.propTypes = {
+    orderNum: PropTypes.string.isRequired,
 }
 
 export default OrderDetails;

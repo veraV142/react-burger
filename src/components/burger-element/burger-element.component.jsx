@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './burger-constructor-element.styles.module.css'
+import styles from './burger-element.styles.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { dataType } from '../../data'
 
-export default class BurgerConstructorElement extends React.Component 
+export default class BurgerElement extends React.Component 
 {
     render() {
 
@@ -25,6 +25,6 @@ export default class BurgerConstructorElement extends React.Component
     }
 }
 
-BurgerConstructorElement.propTypes = {
+BurgerElement.propTypes = {
     data: dataType
 }

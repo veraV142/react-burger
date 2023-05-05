@@ -1,17 +1,6 @@
-.checkout_st {
-    display: flex; 
-    flex-direction: row; 
-    justify-content: flex-end;
-    gap: 10px
-}
 
-.panel {
-    display: flex; 
-    flex-direction: column;
-}
 
-.menu {
-    display: flex; 
-    flex-direction: column; 
-    gap: 10px; 
-}
+
+
+
+
