@@ -2,16 +2,17 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import BurgerTabPanel from '../burger-tab-panel/burger-tab-panel.component'
 import BurgerListElements from '../burger-list-elements/burger-list-elements.component'
-import { dataType } from '../../data';
+import { dataType } from '../../utils/data';
 import IngredientDetails from '../ingredient-details/ingredient-details.component';
 import Modal from '../modal/modal.component';
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = (props) => 
+{
     const [showedIngredient, showIngredient] = useState({ selected: false });
-
-    const bunList = props.allData.filter((item) => item.type === 'bun');
-    const sauceList = props.allData.filter((item) => item.type === 'sauce');
-    const mainList = props.allData.filter((item) => item.type === 'main');
+    const {allData} = props;
+    const bunList = allData.filter((item) => item.type === 'bun');
+    const sauceList = allData.filter((item) => item.type === 'sauce');
+    const mainList = allData.filter((item) => item.type === 'main');
 
     return (
         <div>

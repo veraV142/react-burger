@@ -3,7 +3,9 @@ import styles from './App.module.css';
 import AppHeader from '../app-header/app-header.component';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.component';
 import BurgerConstructor from '../burger-constructor/burger-constructor.component';
-import { data, dataUrl } from '../../data';
+import { data } from '../../utils/data';
+import { getIngredients} from '../../utils/burger-api';
+
 
 function App() 
 {
@@ -11,8 +13,7 @@ function App()
 
   useEffect(() => {   
     
-    fetch(dataUrl)
-            .then((response) => response.json())
+    getIngredients()
             .then((response) => {
               console.log(response);
               if (response.success === true)

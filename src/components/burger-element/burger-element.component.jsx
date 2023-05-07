@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './burger-element.styles.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { dataType } from '../../data'
+import { dataType } from '../../utils/data'
 
 export default class BurgerElement extends React.Component 
 {

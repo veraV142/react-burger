@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './burger-list-elements.styles.module.css'
 import PropTypes from 'prop-types'
 import BurgerElement from '../burger-element/burger-element.component'
-import { dataType } from '../../data';
+import { dataType } from '../../utils/data';
 
 export default class BurgerListElements extends React.Component 
 {

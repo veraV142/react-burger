@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 
+
+
 export const dataType = PropTypes.shape({
    _id: PropTypes.string.isRequired,
    name: PropTypes.string.isRequired,
@@ -20,7 +22,7 @@ export const selectedIngredient = PropTypes.shape({
    ingredient: dataType,
 })
 
-export const dataUrl = 'https://norma.nomoreparties.space/api/ingredients';
+export const dataUrl = 'https://norma.nomoreparties.space/api';
 
 export const data = [
     {

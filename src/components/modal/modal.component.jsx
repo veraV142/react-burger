@@ -16,6 +16,8 @@ const Modal = (props) => {
           }
         };
         window.addEventListener("keydown", closePopupWithEsc);
+
+        return () => document.removeEventListener("keydown", closePopupWithEsc) 
     }, [onClose]);
 
     return ReactDOM.createPortal(
