@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import styles from './App.module.css';
 import AppHeader from '../app-header/app-header.component';
-import BurgerConstructor from '../burger-constructor/burger-constructor.component';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.component';
-import { data } from '../../data';
+import BurgerConstructor from '../burger-constructor/burger-constructor.component';
+import { data } from '../../utils/data';
+import { getIngredients} from '../../utils/burger-api';
 
-function App() {
+
+function App() 
+{
+  const [loadedData, setData] = useState(data);
+
+  useEffect(() => {   
+    
+    getIngredients()
+            .then((response) => {
+              console.log(response);
+              if (response.success === true)
+                setData(response.data);
+            })
+            .then((error) => {
+              console.log(`При загрузке данных произошла ошибка ${error}`);
+            })
+  }, []);
+
   return (
     <div className="App">
         <AppHeader />
         <div className={styles.main_control} >
           <div className={`mr-10`}>
-            <BurgerConstructor allData={data} />
+            <BurgerIngredients allData={loadedData} />
           </div>
-          <BurgerIngredients allData={data} />
+          <BurgerConstructor allData={loadedData} />
         </div>
     </div>
   );

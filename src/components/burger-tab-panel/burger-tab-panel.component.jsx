@@ -2,7 +2,7 @@ import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
 
-export default class BurgerConstructorTabPanel extends React.Component {
+export default class BurgerTabPanel extends React.Component {
 
     constructor(props) {
         super(props);
@@ -35,6 +35,6 @@ export default class BurgerConstructorTabPanel extends React.Component {
     }
 }
 
-BurgerConstructorTabPanel.propTypes = {
+BurgerTabPanel.propTypes = {
     selectTab: PropTypes.func.isRequired
 }

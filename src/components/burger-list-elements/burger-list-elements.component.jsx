@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './burger-constructor-list-elements.styles.module.css'
+import styles from './burger-list-elements.styles.module.css'
 import PropTypes from 'prop-types'
-import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element.component'
-import { dataType } from '../../data';
+import BurgerElement from '../burger-element/burger-element.component'
+import { dataType } from '../../utils/data';
 
-export default class BurgerConstructorListElements extends React.Component 
+export default class BurgerListElements extends React.Component 
 {
     render() {
 
@@ -22,7 +22,7 @@ export default class BurgerConstructorListElements extends React.Component
                 <div  className={`mt-6 ml-4 mr-4 ${styles.table_el}`} >
                     {this.props.bunList.map((elem) => {
                         return (
-                            <BurgerConstructorElement key={elem._id} data={elem} />
+                            <BurgerElement key={elem._id} data={elem} showIngredient={this.props.showIngredient}/>
                         );
                     })}
                 </div>
@@ -32,7 +32,7 @@ export default class BurgerConstructorListElements extends React.Component
                 <div className={`mt-6 ml-4 mr-4 ${styles.table_el}`} >
                     {this.props.sauceList.map((elem) => {
                         return (
-                            <BurgerConstructorElement key={elem._id} data={elem} />
+                            <BurgerElement key={elem._id} data={elem} showIngredient={this.props.showIngredient}/>
                         );
                     })}
                 </div>
@@ -42,7 +42,7 @@ export default class BurgerConstructorListElements extends React.Component
                 <div className={`mt-6 ml-4 mr-4 ${styles.table_el}`}>
                     {this.props.mainList.map((elem) => {
                         return (
-                            <BurgerConstructorElement key={elem._id} data={elem} />
+                            <BurgerElement key={elem._id} data={elem} showIngredient={this.props.showIngredient} />
                         );
                     })}
                 </div>
@@ -51,7 +51,7 @@ export default class BurgerConstructorListElements extends React.Component
     }
 }
 
-BurgerConstructorListElements.propTypes = {
+BurgerListElements.propTypes = {
     bunList: PropTypes.arrayOf(dataType),
     sauceList: PropTypes.arrayOf(dataType),
     mainList: PropTypes.arrayOf(dataType),
