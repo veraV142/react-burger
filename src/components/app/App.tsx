@@ -4,13 +4,13 @@ import AppHeader from '../app-header/app-header.component';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.component';
 import BurgerConstructor from '../burger-constructor/burger-constructor.component';
 import { data } from '../../utils/data';
-import { BuhContext, IngredientsContext, AllDataContext, SumPriceContext } from '../../utils/contexts';
+import { IngredientsContext, SumPriceContext } from '../../utils/contexts';
 import { loadIngredients} from '../../utils/burger-api';
 import { sumPrice, randomBuh, randomOtherIngredients} from '../../utils/utils';
 
 function App() 
 {
-  const [allData, setAllData] = useState(data);
+  const [allData, setAllData] = useState([]);
   const [buhData, setBuhData] = useState();
   const [ingredientsData, setIngredientData] = useState(data);
   const [sum, setSum] = useState(0);
@@ -46,9 +46,8 @@ function App()
   return (
     <div className="App">
         <AppHeader />
-        <AllDataContext.Provider value={allData}>
-          <BuhContext.Provider value={buhData}>
-            <IngredientsContext.Provider value={ingredientsData}>
+
+            <IngredientsContext.Provider value={{ingredientsData, allData, buhData}}>
               <SumPriceContext.Provider value={sum}>
                 <div className={styles.main_control} >
                   <div className={`mr-10`}>
@@ -58,8 +57,7 @@ function App()
                 </div>
               </SumPriceContext.Provider>
             </IngredientsContext.Provider>
-          </BuhContext.Provider>
-        </AllDataContext.Provider>
+
         
         
     </div>
