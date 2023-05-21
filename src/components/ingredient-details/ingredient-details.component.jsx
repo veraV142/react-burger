@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./ingredient-details.styles.module.css";
-import { dataType  } from '../../utils/data';
+import { useSelector } from "react-redux";
 
-const IngredientDetails = (props) => {
+const IngredientDetails = () => {
 
-    const { ingredient } = props;
+    const ingredient = useSelector(store => store.fullIngredientDataReducer.ingredient);
 
     return (
       <div className={styles.in_det_panel}>
@@ -31,9 +31,5 @@ const IngredientDetails = (props) => {
       </div>
     );
   };
-
-IngredientDetails.propTypes = {
-    ingredient: dataType.isRequired,
-}
 
 export default IngredientDetails;
