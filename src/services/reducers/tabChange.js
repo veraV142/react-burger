@@ -1,6 +1,6 @@
 import {
     TAB_CHANGE
-  } from '../actions/index';
+  } from '../actions/tabChange';
 
   export const tabChangeInitialState = {
     tab: 'bun'

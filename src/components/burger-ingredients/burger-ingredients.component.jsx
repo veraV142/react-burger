@@ -3,7 +3,7 @@ import BurgerListElements from '../burger-list-elements/burger-list-elements.com
 import IngredientDetails from '../ingredient-details/ingredient-details.component';
 import Modal from '../modal/modal.component';
 import { useSelector, useDispatch } from "react-redux";
-import { ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA } from '../../services/actions/index'
+import { ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA } from '../../services/actions/fullIngredientData'
 
 const BurgerIngredients = () => 
 {

@@ -1,4 +1,5 @@
-import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from '../actions/index';
+import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGREDIENTS } from '../actions/ingredientConstructor';
+import { v4 as uuidv4 } from 'uuid';
   
   export const ingredientConstructorInitialState = {
     selectedIngredients: [], 
@@ -10,8 +11,8 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from '../a
   {
       switch (action.type) {
           case ADD_INGREDIENT: {
-              const newIndex = state.selectedIngredients.length + 1;
-              const newSelIng = { index: newIndex, ingredient: action.data.ingredient };
+              const uuid = uuidv4();
+              const newSelIng = { uuid: uuid, ingredient: action.data.ingredient };
 
               return {
                 ...state,
@@ -23,10 +24,17 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from '../a
           case DROP_INGREDIENT: {
             return  {
                 ...state,
-                selectedBun: action.index === -1 ? null : state.selectedBun, 
-                selectedIngredients: action.index !== -1 ? 
-                    state.selectedIngredients.filter(si => si.index !== action.index ) : 
+                selectedBun: action.uuid === null ? null : state.selectedBun, 
+                selectedIngredients: action.uuid !== null ? 
+                    state.selectedIngredients.filter(si => si.uuid !== action.uuid ) : 
                     [...state.selectedIngredients]
+            };
+          }
+          case CLEAR_INGREDIENTS: {
+            return  {
+                ...state,
+                selectedBun: null, 
+                selectedIngredients: []
             };
           }
           case CALC_SUM: {
@@ -52,9 +60,9 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from '../a
             let toPos = 0;
             for (let i = 0; i < newSelectedIngredients.length; i++) {
                 let elem = newSelectedIngredients[i];
-                if (elem.index === fromItemIndex)
+                if (elem.uuid === fromItemIndex)
                     fromPos = i;
-                if (elem.index === toItemIndex)
+                if (elem.uuid === toItemIndex)
                     toPos = i;
             }
 
@@ -64,6 +72,7 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from '../a
 
             return  {
                 ...state,
+                dragIngredientIndex: fromItemIndex,
                 selectedIngredients: newSelectedIngredients
             };
           }

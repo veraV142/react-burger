@@ -10,3 +10,8 @@
     flex-direction: column; 
     gap: 10px; 
 }
+
+.filling {
+    display: flex; 
+    flex-direction: row; 
+}

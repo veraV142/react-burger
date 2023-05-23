@@ -1,6 +1,6 @@
 import {
     GET_ORDER_NUM, GET_ORDER_NUM_SUCCESS, GET_ORDER_NUM_FAIL, DROP_ORDER_NUM
-  } from '../actions/index';
+  } from '../actions/order';
 
   export const orderNumInitialState = {
     orderNum: null, 

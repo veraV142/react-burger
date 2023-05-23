@@ -1,6 +1,6 @@
 import {
     GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED
-  } from '../actions/index';
+  } from '../actions/ingredientsLoad';
 
   export const ingredientsLoadInitialState = {
     data: [],

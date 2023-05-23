@@ -3,7 +3,7 @@ import styles from './burger-list-elements.styles.module.css'
 import BurgerElement from '../burger-element/burger-element.component'
 import { useSelector, useDispatch} from "react-redux";
 import { useInView } from "react-intersection-observer"
-import { TAB_CHANGE } from '../../services/actions/index'
+import { TAB_CHANGE } from '../../services/actions/tabChange'
 
 const BurgerListElements = (props) => 
 {

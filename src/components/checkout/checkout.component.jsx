@@ -4,8 +4,9 @@ import styles from './checkout.styles.module.css'
 import OrderDetails from '../order-details/order-details.component'
 import Modal from '../modal/modal.component';
 import { useDispatch, useSelector } from "react-redux";
-import { DROP_ORDER_NUM } from '../../services/actions';
-import {sendOrderAndGetResult} from '../../services/actions/index'
+import { DROP_ORDER_NUM } from '../../services/actions/order';
+import {CLEAR_INGREDIENTS} from '../../services/actions/ingredientConstructor';
+import {sendOrderAndGetResult} from '../../services/actions/order'
 
 export const Checkout = () =>  
 {
@@ -18,11 +19,13 @@ export const Checkout = () =>
     const dispatch = useDispatch(); 
     
     const onSendOrderAndGetResult = () => {
-        dispatch(sendOrderAndGetResult([buhData, buhData, ...ingredientsData]));
+        const ingredients = ingredientsData.map(idata => idata.ingredient);
+        dispatch(sendOrderAndGetResult([buhData, buhData, ...ingredients]));
     };
     
     function closeOrder() {
         dispatch({type: DROP_ORDER_NUM});
+        dispatch({ type: CLEAR_INGREDIENTS })
     }
 
     const checkoutVisible = buhData != null || ingredientsData.length > 0;

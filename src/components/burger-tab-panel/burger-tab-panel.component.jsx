@@ -2,7 +2,7 @@ import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch} from "react-redux";
-import {TAB_CHANGE} from '../../services/actions/index'
+import {TAB_CHANGE} from '../../services/actions/tabChange'
 
 const BurgerTabPanel = (props) => 
 {

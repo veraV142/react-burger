@@ -1,6 +1,6 @@
 import {
     ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA
-} from '../actions/index';
+} from '../actions/fullIngredientData';
 
 export const fullIngredientDataInitialState = {
     ingredient: null

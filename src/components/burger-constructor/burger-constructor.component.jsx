@@ -1,9 +1,9 @@
-import { ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor.styles.module.css'
 import {Checkout} from '../checkout/checkout.component';
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
-import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from "../../services/actions/index"
+import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from "../../services/actions/ingredientConstructor"
 
 export const BurgerConstructor = () => 
 {
@@ -17,8 +17,8 @@ export const BurgerConstructor = () =>
         },
       });
 
-    function dropIngredient(index) {
-        dispatch({ type: DROP_INGREDIENT, index: index });
+    function dropIngredient(uuid) {
+        dispatch({ type: DROP_INGREDIENT, uuid: uuid });
         dispatch({ type: CALC_SUM });
     }
 
@@ -36,7 +36,7 @@ export const BurgerConstructor = () =>
     return (
         <div className={`mt-25 ${styles.panel}`} ref={dropTarget}> 
 
-            <div className={`mt-2 mb-4 mr-4 pr-4`}>
+            <div className={`mt-2 mb-4 mr-4 ml-7 pr-4`}>
                 {selectedBun &&
                 <ConstructorElement
                     type={'top'}
@@ -44,20 +44,20 @@ export const BurgerConstructor = () =>
                     text={`${selectedBun.name} (верх)`}
                     price={selectedBun.price}
                     thumbnail={selectedBun.image}
-                    handleClose={() => dropIngredient(-1)}
+                    handleClose={() => dropIngredient(null)}
                 />}
             </div>
             <div className={`${styles.menu}`} 
                 style={{overflowY: 'auto', maxHeight: `${scrollHeight}px`, scrollBarColor: '#6969dd #e0e0e0', scrollbarWidth: 'thin' }}>
                 {selectedIngredients && selectedIngredients.map((elem) => {
                     return (
-                        <div key={elem.index}>
-                            <FillingElement index={elem.index}/>
+                        <div key={elem.uuid}>
+                            <FillingElement uuid={elem.uuid}/>
                         </div>
                     );
                 })}
             </div>
-            <div className={`mt-4 mb-2 mr-4 pr-4`}>
+            <div className={`mt-4 mb-2 mr-4 pr-4 ml-7 `}>
                 {
                 selectedBun &&
                 <ConstructorElement
@@ -66,7 +66,7 @@ export const BurgerConstructor = () =>
                     text={`${selectedBun.name} (низ)`}
                     price={selectedBun.price}
                     thumbnail={selectedBun.image}
-                    handleClose={() => dropIngredient(-1)}
+                    handleClose={() => dropIngredient(null)}
                 />}
             </div>
             <Checkout />
@@ -76,43 +76,50 @@ export const BurgerConstructor = () =>
 
 const FillingElement = (props) => 
 {
-    const { index } = props;
+    const { uuid } = props;
     const selectedIngredients = useSelector(store => 
         store.ingredientConstructorReducer.selectedIngredients);
 
-    const elem = selectedIngredients.filter(si => si.index === index)[0];
+    const elem = selectedIngredients.filter(si => si.uuid === uuid)[0];
 
     const dispatch = useDispatch();
 
-    function dropIngredient(index) {
-        dispatch({ type: DROP_INGREDIENT, index: index });
+    function dropIngredient(uuid) {
+        dispatch({ type: DROP_INGREDIENT, uuid: uuid });
         dispatch({ type: CALC_SUM });
     }
 
     const [{ isDrag }, drag] = useDrag({
         type: "fillings",
-        item: { index: elem.index },
+        item: { uuid: elem.uuid },
         collect: (monitor) => ({
           isDrag: monitor.isDragging(),
         }),
       });
 
+      const opacity = isDrag ? 0 : 1;
+
       const [, drop] = useDrop({
         accept: "fillings",
         
-        drop: (item) => {
-            dispatch({ type: MOVE_INGREDIENT, data: {fromItemIndex: elem.index, toItemIndex: item.index} });
-        }
+        hover: (item) => {
+            if (item.uuid === elem.uuid)
+                return;
+            dispatch({ type: MOVE_INGREDIENT, data: {fromItemIndex: elem.uuid, toItemIndex: item.uuid} });
+        },
     });
 
     return drag(drop(
-        !isDrag && <div className={`mt-2 mb-2 pr-4 `} ref={drop}>
+        <div className={`mt-2 mb-2 pr-4 ${styles.filling}`} ref={drop} style={{ opacity }}>
+                            <span className='mt-6 mr-2'>
+                                <DragIcon type="primary" />
+                            </span>
                             <ConstructorElement
                                 isLocked={false}
                                 text={elem.ingredient.name}
                                 price={elem.ingredient.price}
                                 thumbnail={elem.ingredient.image}
-                                handleClose={() => dropIngredient(elem.index)}
+                                handleClose={() => dropIngredient(elem.uuid)}
                             />
                         </div>
     ))
