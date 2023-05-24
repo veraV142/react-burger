@@ -4,6 +4,7 @@ import {Checkout} from '../checkout/checkout.component';
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from "../../services/actions/ingredientConstructor"
+import { v4 as uuidv4 } from 'uuid';
 
 export const BurgerConstructor = () => 
 {
@@ -12,7 +13,8 @@ export const BurgerConstructor = () =>
     const [, dropTarget] = useDrop({
         accept: "ingredients",
         drop: (ing) => {
-          dispatch({ type: ADD_INGREDIENT, data: ing });
+          const uuid = uuidv4();
+          dispatch({ type: ADD_INGREDIENT, data: { ingredient: ing.ingredient, uuid: uuid} });
           dispatch({ type: CALC_SUM });
         },
       });

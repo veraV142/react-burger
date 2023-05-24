@@ -1,5 +1,4 @@
 import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGREDIENTS } from '../actions/ingredientConstructor';
-import { v4 as uuidv4 } from 'uuid';
   
   export const ingredientConstructorInitialState = {
     selectedIngredients: [], 
@@ -11,8 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
   {
       switch (action.type) {
           case ADD_INGREDIENT: {
-              const uuid = uuidv4();
-              const newSelIng = { uuid: uuid, ingredient: action.data.ingredient };
+              
+              const newSelIng = { uuid: action.data.uuid, ingredient: action.data.ingredient };
 
               return {
                 ...state,
