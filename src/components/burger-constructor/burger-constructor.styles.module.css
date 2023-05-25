@@ -2,10 +2,16 @@
 .panel {
     display: flex; 
     flex-direction: column;
+    min-width: 500px;
 }
 
 .menu {
     display: flex; 
     flex-direction: column; 
     gap: 10px; 
+}
+
+.filling {
+    display: flex; 
+    flex-direction: row; 
 }

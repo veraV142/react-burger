@@ -1,20 +1,22 @@
-import React, {useState } from 'react';
-import PropTypes from 'prop-types';
 import BurgerTabPanel from '../burger-tab-panel/burger-tab-panel.component'
 import BurgerListElements from '../burger-list-elements/burger-list-elements.component'
-import { dataType } from '../../utils/data';
 import IngredientDetails from '../ingredient-details/ingredient-details.component';
 import Modal from '../modal/modal.component';
+import { useSelector, useDispatch } from "react-redux";
+import { ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA } from '../../services/actions/fullIngredientData'
 
-const BurgerIngredients = (props) => 
+const BurgerIngredients = () => 
 {
-    const [showedIngredient, showIngredient] = useState({ selected: false });
+    const dispatch = useDispatch();
+    const showedIngredient = useSelector(store => store.fullIngredientDataReducer.ingredient);
 
-    const allData = props.allData; 
+    const onShowIngredient = (data) => {
+        dispatch({ type: ADD_FULL_INGREDIENT_DATA, ingredient: data.ingredient });
+    };
 
-    const bunList = allData.filter((item) => item.type === 'bun');
-    const sauceList = allData.filter((item) => item.type === 'sauce');
-    const mainList = allData.filter((item) => item.type === 'main');
+    const onCloseIngredient = () => {
+        dispatch({ type: DROP_FULL_INGREDIENT_DATA });
+    };
 
     return (
         <div>
@@ -26,10 +28,10 @@ const BurgerIngredients = (props) =>
                 elemForScroll.scrollIntoView();
             }} 
             />
-            <BurgerListElements bunList={bunList} sauceList={sauceList} mainList={mainList} showIngredient={showIngredient}/>
+            <BurgerListElements showIngredient={onShowIngredient}/>
             {
-                showedIngredient.selected && (
-                    <Modal header={'Детали ингредиента'} showed={showedIngredient.selected} onClose={() => showIngredient({selected: false})}>
+                showedIngredient && (
+                    <Modal header={'Детали ингредиента'} showed={showedIngredient != null} onClose={onCloseIngredient}>
                         <IngredientDetails ingredient={showedIngredient.ingredient}/>
                     </Modal>
                 ) 
@@ -37,10 +39,6 @@ const BurgerIngredients = (props) =>
         </div>
     );
     
-}
-
-BurgerIngredients.propTypes = {
-    allData: PropTypes.arrayOf(dataType).isRequired,
 }
 
 export default BurgerIngredients;
