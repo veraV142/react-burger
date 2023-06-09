@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import styles from './menu-label.styles.module.css'
+import { NavLink } from 'react-router-dom';
 
 export default class MenuLabel extends React.Component 
 {
@@ -10,9 +11,18 @@ export default class MenuLabel extends React.Component
             <span className={`ml-5 mr-2 mt-4 mb-4`}>
               {this.props.children}
             </span>
-            <a href="/" className={`mr-5 mt-4 mb-4 text text_type_main-default ${this.props.isActive === true ? styles.active_text : styles.unactive_text}`} >
-              {this.props.text}
-            </a>
+
+            <NavLink to={{ pathname: `${this.props.link}` }}
+                    className={({isActive, isPending }) =>  { 
+                        return !isActive ? 
+                          `mr-5 mt-4 mb-4 text text_type_main-default text_color_inactive` : 
+                          `mr-5 mt-4 mb-4 text text_type_main-default`
+                        } 
+                    }
+                    > {this.props.text}
+            </NavLink>
+
+            
           </div>
       );
     }

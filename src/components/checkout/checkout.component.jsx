@@ -6,7 +6,7 @@ import Modal from '../modal/modal.component';
 import { useDispatch, useSelector } from "react-redux";
 import { DROP_ORDER_NUM } from '../../services/actions/order';
 import {CLEAR_INGREDIENTS} from '../../services/actions/ingredientConstructor';
-import {sendOrderAndGetResult} from '../../services/actions/order'
+import { sendOrderAndGetResult } from '../../services/actions/order'
 
 export const Checkout = () =>  
 {
