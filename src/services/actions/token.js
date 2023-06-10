@@ -21,6 +21,7 @@ export function authTokenAndGetResult(token) {
               }
             })
             .catch((error) => {
+                console.log(`TOKEN_FAIL ${error.message}`);
                 dispatch({ type: TOKEN_FAIL });
             })
     }

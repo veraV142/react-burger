@@ -1,6 +1,6 @@
   import {
     GET_USER, GET_USER_SUCCESS, GET_USER_FAIL, TOKEN_EXPIRED, 
-    SAVE_USER, SAVE_USER_SUCCESS, SAVE_USER_FAIL,
+    SAVE_USER, SAVE_USER_SUCCESS, SAVE_USER_FAIL, TOKEN_INVALID
   } from '../actions/user';
 
   export const initialState = {
@@ -8,6 +8,7 @@
     getUserFail: false, 
     data: null,
     tokenExpired: false,
+    tokenInvalid: false,
     saveUserRequest: false,
     saveUserFail: false,  
     saveUserSuccess: false,
@@ -21,6 +22,7 @@
             return {
                 ...state,
                 tokenExpired: false,
+                tokenInvalid: false,
                 getUserRequest:true,
                 getUserFail:false, 
                 data:null
@@ -43,7 +45,7 @@
                 ...state,
                 getUserRequest: false, 
                 getUserFail: true,
-                data:null
+                data: { isError:true, name:'не определено', email:'не определено'  }
             };
         }
         case SAVE_USER: {
@@ -53,15 +55,17 @@
                 tokenExpired: false,
                 saveUserRequest:true,
                 saveUserFail:false,
-                saveUserSuccess:false
+                saveUserSuccess:false,
+                tokenInvalid: false,
             };
         }
         case SAVE_USER_SUCCESS: {
-            console.log(`SAVE_USER_SUCCESS email=${action.email}`);
+            console.log(`SAVE_USER_SUCCESS email=${action.email} name=${action.name}`);
             return {
                 saveUserRequest: false, 
                 saveUserFail: false,
-                saveUserSuccess:true
+                saveUserSuccess:true,
+                
             };
         }
         case SAVE_USER_FAIL: {
@@ -82,7 +86,20 @@
                 saveUserRequest: false, 
                 getUserFail: true,
                 saveUserFail: true,
-                data:null,
+                data:{ isError:true, name:'не определено', email:'не определено'  },
+                saveUserSuccess:false
+            };
+        }
+        case TOKEN_INVALID: {
+            console.log(`TOKEN_INVALID`);
+            return {
+                ...state,
+                tokenInvalid: true,
+                getUserRequest: false, 
+                saveUserRequest: false, 
+                getUserFail: true,
+                saveUserFail: true,
+                data:{ isError:true, name:'не определено', email:'не определено'  },
                 saveUserSuccess:false
             };
         }

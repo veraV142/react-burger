@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { passwordNewAndGetResult } from "../../../services/actions/password"
 import styles from './reset.styles.modules.css'
+import { LOGOUT_CLEAR } from '../../../services/actions/logout';
 
 export const ResetPage = () => 
 {
@@ -14,7 +15,8 @@ export const ResetPage = () =>
 
     useEffect(() => {  
         if (passwordNewComplete) {
-            navigate('/login');
+            dispatch({ type: LOGOUT_CLEAR });
+            navigate('/logout');
         }
     }, [passwordNewComplete]);
 
@@ -56,7 +58,7 @@ export const ResetPage = () =>
             </Button>
             <div className='mt-20' style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'center'}}>
                 <p>Вспомнили пароль?</p>
-                <Link to='/login' className='mt-4 ml-2'>
+                <Link to='/logout' className='mt-4 ml-2'>
                     Войти
                 </Link>
             </div>

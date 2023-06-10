@@ -1,16 +1,48 @@
+import { TOKEN_INVALID } from "../services/actions/user";
+import { authToken } from "./burger-api";
+
+export function withCheckToken( dispatch, getUser, failAction ) {
+  const accessToken = getCookie('accessToken');
+  console.log(`withCheckToken  accessToken=${accessToken}`);
+  if (accessToken===null || accessToken==='undefined' || accessToken==='' || accessToken==='null') {
+      const refreshToken = getCookie('refreshToken');
+      console.log(`withCheckToken  refreshToken=${refreshToken}`);
+      authToken(refreshToken)
+        .then(response=> {
+          if (response.success === 'true') {
+              saveTokens(response.accessToken, response.refreshToken);
+              getUser();
+          } 
+          else {
+              dispatch({ type: failAction });
+          }
+        })
+        .catch(error => {
+          console.log(`withCheckToken error=${error.message}`);
+          if (error.message === 'Token is invalid') {
+              dispatch({ type: TOKEN_INVALID });
+          }
+          else 
+              dispatch({ type: failAction });
+        });
+  }
+  else {
+      getUser();
+  }
+}
 
 export function saveTokens(accessToken, refreshToken) 
 {
-  setCookie('accessToken', accessToken, 5)
+  setCookie('accessToken', accessToken, 60*60*20)
   setCookie('refreshToken', refreshToken, 60*60*24*30)
 
   console.log(`saveTokens: accessToken=${accessToken}; refreshToken=${refreshToken};`);
 }
 
-export function clearTokens(accessToken, refreshToken) 
+export function clearTokens() 
 {
-  setCookie('accessToken', accessToken, 0)
-  setCookie('refreshToken', refreshToken, 0)
+  setCookie('accessToken', '', 0)
+  setCookie('refreshToken', '', 0)
 }
 
 export function clearCookie() {

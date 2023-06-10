@@ -7,12 +7,12 @@ export const checkReponse = (res) => {
 
 export function saveAuthUser(name, email) 
 {
-    const requestBody = { "user": {"name":name, 'email':email} };
+    const requestBody = {name:name, email:email};
 
     const accessToken = getCookie('accessToken');
 
     return fetch(`${dataUrl}/auth/user`, {
-        method: 'POST',
+        method: 'PATCH',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
@@ -25,6 +25,29 @@ export function saveAuthUser(name, email)
         body: JSON.stringify(requestBody)
       })
      .then(checkReponse)
+}
+
+export function sendOrder(ingredients) 
+{
+    const ingredientsUids = [];
+    ingredients.forEach(ing => {
+        ingredientsUids.push(ing._id);
+    });
+
+    const order = {
+        "ingredients": ingredientsUids
+    }
+
+    const accessToken = getCookie('accessToken');
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: accessToken },
+        body: JSON.stringify(order)
+    };
+
+    return fetch(`${dataUrl}/orders`, requestOptions)
+        .then(checkReponse);
 }
 
 export function getAuthUser() 
@@ -57,11 +80,13 @@ export function authLogout(refreshToken)
     };
 
     return fetch(`${dataUrl}/auth/logout`, requestOptions)
-     .then(checkReponse)
+     .then(checkReponse);
 }
 
 export function authToken(refreshToken) 
 {
+    console.log(`authToken   refreshToken=${refreshToken}`)
+
     const requestBody = { "token": refreshToken };
 
     const requestOptions = {
@@ -135,23 +160,4 @@ export function loadIngredients() {
      .then(checkReponse)
 }
 
-export function sendOrder(ingredients) 
-{
-    const ingredientsUids = [];
-    ingredients.forEach(ing => {
-        ingredientsUids.push(ing._id);
-    });
 
-    const order = {
-        "ingredients": ingredientsUids
-    }
-
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(order)
-    };
-
-    return fetch(`${dataUrl}/orders`, requestOptions)
-        .then(checkReponse);
-}

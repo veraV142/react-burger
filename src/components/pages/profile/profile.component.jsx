@@ -1,12 +1,10 @@
-import { Input, Button, PasswordInput,  } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Input, Button  } from '@ya.praktikum/react-developer-burger-ui-components'
 import { memo, useState, useRef, useEffect} from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import styles from './profile.styles.module.css'
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { authLogoutAndGetResult } from '../../../services/actions/logout'
+import { LOGOUT_CLEAR, authLogoutAndGetResult } from '../../../services/actions/logout'
 import { getCookie } from '../../../utils/utils';
 import { authGetUserAndGetResult, authSaveUserAndGetResult } from '../../../services/actions/user';
-import { authTokenAndGetResult } from '../../../services/actions/token';
 
 export const ProfilePage = (props) => 
 {
@@ -22,41 +20,47 @@ export const ProfilePage = (props) =>
     const [srcEmailValue, setSrcEmailValue] = useState('')
     const inputEmailRef = useRef(null)
 
-    const [password, setPassword] = useState('')
-    const onChangePassword = e => {
-        setPassword(e.target.value)
-    }
+    const navigate = useNavigate(); 
 
-    const logoutSuccess = useSelector(store => store.logoutReducer.logoutSuccess);
-    if (subpage==='exit' && !logoutSuccess) 
-    {
-        const accessToken = getCookie('refreshToken');
-        dispatch(authLogoutAndGetResult(accessToken));
-    }
+    // const [password, setPassword] = useState('')
+    // const onChangePassword = e => {
+    //     setPassword(e.target.value)
+    // }
+
+
 
     const userData = useSelector(store => store.userReducer.data);
-    const saveUserSuccess = useSelector(store => store.userReducer.saveUserSuccess);
-    if (subpage==='' && userData===null) 
+    const tokenInvalid = useSelector(store => store.userReducer.tokenInvalid);
+    const getUserFail = useSelector(store => store.userReducer.getUserFail);
+
+    if (subpage==='profile' && userData===null) 
     {
+        console.log( `userdata=${userData}`);
         dispatch(authGetUserAndGetResult());
     }
 
-    const navigate = useNavigate(); 
+    if (subpage==='') {
+        dispatch(authGetUserAndGetResult());
+        navigate('/profile/user');
+    }
+
+    
     useEffect(() => {  
-        if (subpage==='exit' && logoutSuccess) {
-            navigate('/login');
+        
+        if (subpage==='profile') {
+            if (tokenInvalid || getUserFail) {
+                console.log(`tokenInvalid=${tokenInvalid}`);
+                dispatch({ type: LOGOUT_CLEAR });
+                navigate('/logout');
+            }
+            else if (userData !== null && userData !== undefined) {
+                 setNameValue(userData.name);
+                 setSrcNameValue(userData.name);
+                 setEmailValue(userData.email);
+                 setSrcEmailValue(userData.email);
+            }   
         }
-        if (subpage==='' && userData !== null) {
-            setNameValue(userData.name);
-            setSrcNameValue(userData.name);
-            setEmailValue(userData.email);
-            setSrcEmailValue(userData.email);
-        }
-        if (subpage==='' && saveUserSuccess === 'true') {
-            setSrcNameValue(nameValue);
-            setSrcEmailValue(emailValue);
-        }
-    }, [logoutSuccess, userData, saveUserSuccess]);
+    }, [userData, tokenInvalid, subpage, getUserFail]);
 
     const cancelClick = () => 
     {
@@ -67,13 +71,19 @@ export const ProfilePage = (props) =>
     
     const saveClick = () => 
     {
+        if (userData !== null && userData !== undefined) {
+            userData.name = nameValue;
+            userData.email = emailValue;
+        }
+        setSrcNameValue(nameValue);
+        setSrcEmailValue(emailValue);
         dispatch(authSaveUserAndGetResult(nameValue, emailValue));
     };
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row'}}>
             <div className={`mt-20`} style={{ display: 'flex', flexDirection: 'column',  alignItems: 'flex-start'}}>
-                <NavLink to={{ pathname:'/profile/'}} 
+                <NavLink to={{ pathname:'/profile/user'}} 
                     className={({isActive, isPending }) =>  { 
                         return !isActive ? 
                           `text text_type_main-medium text_color_inactive mb-10` : 
@@ -104,10 +114,8 @@ export const ProfilePage = (props) =>
                 <p className={`text text_type_main-small text_color_inactive mt-10`} >В этом разделе вы можете</p>
                 <p className={`text text_type_main-small text_color_inactive`} >изменить свои персональные данные</p>
             </div>
-            {subpage==='exit' &&  <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
-                <p className={`text text_type_main-medium mt-20 ml-8 mb-4`}>{logoutSuccess ? 'Выход завершен' : 'Выходим...'}</p>
-            </div>}
-            {subpage==='' && userData!==null && <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
+            {subpage==='exit' && <Navigate to={'/logout'} replace/>}
+            { subpage==='profile' && <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
@@ -119,7 +127,7 @@ export const ProfilePage = (props) =>
                     errorText={'Ошибка ввода имени'}
                     size={'default'}
                     extraClass={`text text_type_main-medium mt-20 mb-4`}
-                    icon="EditIcon" 
+                    
                     onIconClick={e => setNameValue(e.target.value)}
                     />
                 <Input
@@ -133,14 +141,13 @@ export const ProfilePage = (props) =>
                     errorText={'Ошибка ввода логина'}
                     size={'default'}
                     extraClass={`mb-4`}
-                    icon="EditIcon" 
                     onIconClick={e => setEmailValue(e.target.value)}/>
-                <PasswordInput
+                {/* <PasswordInput
                     onChange={onChangePassword}
                     value={password}
                     name={'password'}
                     extraClass="mb-2"
-                    icon="EditIcon" />
+                    icon="EditIcon" /> */}
                 <div style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'flex-end'}}>
                     <Button htmlType="button" type="primary" size="medium" onClick={saveClick} extraClass="mr-4">
                         Сохранить

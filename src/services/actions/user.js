@@ -1,8 +1,9 @@
 import { getAuthUser, authToken, saveAuthUser } from '../../utils/burger-api';
-import { getCookie, saveTokens } from '../../utils/utils';
+import { getCookie, saveTokens, setCookie, withCheckToken } from '../../utils/utils';
 
 
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED'
+export const TOKEN_INVALID = 'TOKEN_INVALID'
 
 export const GET_USER = 'GET_USER'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
@@ -12,32 +13,12 @@ export const SAVE_USER = 'SAVE_USER'
 export const SAVE_USER_SUCCESS = 'SAVE_USER_SUCCESS'
 export const SAVE_USER_FAIL = 'SAVE_USER_FAIL'
 
-export function withCheckToken( dispatch, getUser, failAction ) {
-    const accessToken = getCookie('accessToken');
-    if (accessToken===null || accessToken===undefined) {
-        const refreshToken = getCookie('refreshToken');
-        authToken(refreshToken)
-          .then(response=> {
-            if (response.success === 'true') {
-                saveTokens(response.accessToken, response.refreshToken);
-                getUser();
-            } 
-            else {
-                dispatch({ type: failAction });
-            }
-          })
-          .catch(error => {
-            dispatch({ type: failAction });
-          });
-    }
-    else {
-        getUser();
-    }
-}
+
 
 export function authGetUserAndGetResult(token) {
     return function(dispatch) {
         dispatch({ type: GET_USER });
+        let tryAcceptToken = false;
 
         const getUser = () => {
             getAuthUser()
@@ -48,15 +29,18 @@ export function authGetUserAndGetResult(token) {
                     dispatch({ type: GET_USER_SUCCESS, email: response.user.email, name: response.user.name });
                 }
                 else {
-                    console.log(`GET_USER_FAIL  ${response}`);
+                    console.log(`GET_USER_FAIL  error=${response.message}`);
                     dispatch({ type: GET_USER_FAIL });
                 }
                 })
                 .catch((error) => 
                 {
-                    console.log(`GU_ERROR  ${error}`);
-                    if (error.message === 'jwt expired') {
-                        dispatch({ type: TOKEN_EXPIRED });
+                    console.log(`GU_ERROR  ${error.message} ==== ${tryAcceptToken}`);
+                    if (error.message === 'jwt expired' && tryAcceptToken === 'false') {
+                        console.log(`GU_ERROR_jwt ${tryAcceptToken}`);
+                        setCookie('accessToken', '', 0);
+                        tryAcceptToken = true;
+                        withCheckToken(dispatch, getUser, GET_USER_FAIL);
                     }
                     else 
                         dispatch({ type: GET_USER_FAIL });
@@ -70,13 +54,13 @@ export function authGetUserAndGetResult(token) {
 export function authSaveUserAndGetResult(name, email) {
     return function(dispatch) {
         dispatch({ type: SAVE_USER });
+        let tryAcceptToken = false;
 
         const saveUser = () => {
             saveAuthUser(name, email)
                 .then((response) => {
                 if (response.success === true) 
                 {
-                    console.log('SAVE_USER_SUCCESS');
                     dispatch({ type: SAVE_USER_SUCCESS, email: response.user.email, name: response.user.name });
                 }
                 else {
@@ -86,9 +70,12 @@ export function authSaveUserAndGetResult(name, email) {
                 })
                 .catch((error) => 
                 {
-                    console.log(`GU_ERROR  ${error}`);
-                    if (error.message === 'jwt expired') {
-                        dispatch({ type: TOKEN_EXPIRED });
+                    console.log(`GU_ERROR  ${error.message}`);
+                    if (error.message === 'jwt expired' && tryAcceptToken ==='false') {
+                        console.log(`GU_ERROR_jwt ${tryAcceptToken}`);
+                        setCookie('accessToken', null, 0);
+                        tryAcceptToken = true;
+                        withCheckToken(dispatch, saveUser, SAVE_USER_FAIL);
                     }
                     else 
                         dispatch({ type: SAVE_USER_FAIL });

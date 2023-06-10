@@ -1,5 +1,5 @@
 import {
-    LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL
+    LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL, LOGOUT_CLEAR
   } from '../actions/logout';
 
   export const initialState = {
@@ -31,6 +31,14 @@ import {
                 ...state,
                 logoutRequest: false, 
                 logoutFail: true,
+            };
+        }
+        case LOGOUT_CLEAR: {
+            return {
+                ...state,
+                logoutRequest: false, 
+                logoutFail: false,
+                logoutSuccess: false
             };
         }
         default: {

@@ -4,6 +4,7 @@ import { clearTokens } from '../../utils/utils';
 export const LOGOUT = 'LOGOUT'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAIL = 'LOGOUT_FAIL'
+export const LOGOUT_CLEAR = 'LOGOUT_CLEAR'
 
 export function authLogoutAndGetResult(token) {
     return function(dispatch) {
