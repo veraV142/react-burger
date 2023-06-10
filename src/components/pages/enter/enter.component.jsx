@@ -13,10 +13,12 @@ export const EnterPage = () =>
     const data = useSelector(store=>store.loginReducer.data);
 
     useEffect(() => {
-        if (data !== null)
+        if (data !== null) {
+            console.log('EnterPage data accepted');
             navigate('/');
+        }
     }, 
-    [data]);
+    [data, dispatch, navigate]);
 
     const [emailValue, setEmailValue] = useState('')
     const inputEmailRef = useRef(null)

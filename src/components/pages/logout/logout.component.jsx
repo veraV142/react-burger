@@ -23,7 +23,7 @@ export const LogoutPage = () =>
             dispatch(authLogoutAndGetResult(accessToken));
         }
         
-    }, [logoutSuccess, logoutFail]);
+    }, [logoutSuccess, logoutFail, dispatch, navigate]);
 
     return (
         <>

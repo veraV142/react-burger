@@ -29,7 +29,7 @@ function App()
               <Routes>
                 <Route path="/" element={<HomePage />}/>
                 <Route path="/ingredients/:id" element={showedIngredient ? <HomePage /> : <IngredientsPage />}/>
-                <Route path="/login" element={<EnterPage />} />
+                <Route path="/login" element={<ProtectedRouteElement element={<EnterPage />} revers={true}/>} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="/register" element={<ProtectedRouteElement element={<RegistrationPage />} revers={true}/>} />
                 <Route path="/forgot-password" element={<ProtectedRouteElement element={<RecoveryPage />} revers={true}/>} />

@@ -9,6 +9,7 @@ export const HomePage = () =>
     const dispatch = useDispatch();
 
     useEffect(() => {  
+      console.log('getIngredients()');
       dispatch(getIngredients());
     }, [dispatch]);
 

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import styles from './menu-label.styles.module.css'
 import { NavLink, useLocation } from 'react-router-dom';
-import { dataUrl } from '../../utils/data';
 
 const MenuLabel = (props) =>
 {
@@ -23,8 +22,6 @@ const MenuLabel = (props) =>
                         return activeStyle;
 
                       for (let link of links) {
-                        console.log( `link=${link} location=${location.pathname}` );
-
                         const isRootLink = link === '/';
                         const locationIsRoot = location.pathname === '/';
                         const isStart = !isRootLink && !locationIsRoot && location.pathname.startsWith(`${link}`); 

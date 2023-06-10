@@ -1,5 +1,5 @@
-import { getAuthUser, authToken, saveAuthUser } from '../../utils/burger-api';
-import { getCookie, saveTokens, setCookie, withCheckToken } from '../../utils/utils';
+import { getAuthUser,saveAuthUser } from '../../utils/burger-api';
+import {  setCookie, withCheckToken } from '../../utils/utils';
 
 
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED'

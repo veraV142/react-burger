@@ -18,7 +18,7 @@ export const ResetPage = () =>
             dispatch({ type: LOGOUT_CLEAR });
             navigate('/logout');
         }
-    }, [passwordNewComplete]);
+    }, [dispatch, navigate, passwordNewComplete]);
 
     const resetClick = () => 
     {

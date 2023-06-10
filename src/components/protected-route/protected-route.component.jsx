@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getCookie } from '../../utils/utils';
-import { getAuthUser } from '../../utils/burger-api';
+import { getCookie, saveTokens } from '../../utils/utils';
+import { authToken, getAuthUser } from '../../utils/burger-api';
 import { useDispatch } from 'react-redux';
 import { LOGOUT_CLEAR } from '../../services/actions/logout';
 
@@ -12,9 +12,8 @@ export function ProtectedRouteElement({ element, revers = false })
 
     const dispatch = useDispatch();
 
-    const init = async () => {
-        const accessToken = getCookie('refreshToken');
-        await getAuthUser(accessToken)
+    const init = async (tryAcceptToken) => {
+        await getAuthUser()
           .then(response => {
               if (response.success) {
                 console.log('setIsUserAuth true');
@@ -26,15 +25,43 @@ export function ProtectedRouteElement({ element, revers = false })
               }
               setUserLoaded(true);
         }).catch(error => {
-            console.log('setIsUserAuth false error');
-            setIsUserAuth(false);
-            setUserLoaded(true);
+            console.log(`getAuthUser failed message=${error.message}`);
+            if ((error.message === 'jwt expired' || error.message === 'You should be authorised') && tryAcceptToken) {
+                const refreshToken = getCookie('refreshToken');
+                if (refreshToken === '' || refreshToken === undefined || refreshToken === null)
+                {
+                    setIsUserAuth(false);
+                    setUserLoaded(true);
+                    return;
+                }
+                authToken(refreshToken)
+                .then(response=> {
+                    if (response.success === 'true') {
+                        saveTokens(response.accessToken, response.refreshToken);
+                        init(false);
+                    } 
+                    else {
+                        console.log(`authToken no get message=${response.message}`);
+                        setIsUserAuth(false);
+                        setUserLoaded(true);
+                    }
+                })
+                .catch(error => {
+                    console.log(`authToken error=${error.message}`);
+                    setIsUserAuth(false);
+                    setUserLoaded(true);
+                });
+            }
+            else {
+                setIsUserAuth(false);
+                setUserLoaded(true);
+            }
         });
     };
 
     useEffect(() => {
-        init();
-    }, []);
+        init(true);
+    }, [dispatch]);
 
     if (!isUserLoaded) {
         return null;

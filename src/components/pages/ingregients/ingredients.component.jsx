@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import IngredientDetails from "../../ingredient-details/ingredient-details.component";
-import { ADD_FULL_INGREDIENT_DATA } from "../../../services/actions/fullIngredientData";
 import { useParams } from "react-router-dom";
 import { loadIngredients } from "../../../utils/burger-api";
 
@@ -25,7 +24,7 @@ const IngredientsPage = () =>
             .catch((error) => {
                console.log(error.message);
             })
-    }, [])
+    }, [prms])
     
     if (ingredient === null) 
         return null;

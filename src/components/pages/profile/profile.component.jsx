@@ -1,9 +1,8 @@
-import { Input, Button  } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Input, Button, PasswordInput  } from '@ya.praktikum/react-developer-burger-ui-components'
 import { memo, useState, useRef, useEffect} from 'react';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT_CLEAR, authLogoutAndGetResult } from '../../../services/actions/logout'
-import { getCookie } from '../../../utils/utils';
+import { LOGOUT_CLEAR } from '../../../services/actions/logout'
 import { authGetUserAndGetResult, authSaveUserAndGetResult } from '../../../services/actions/user';
 
 export const ProfilePage = (props) => 
@@ -22,37 +21,32 @@ export const ProfilePage = (props) =>
 
     const navigate = useNavigate(); 
 
-    // const [password, setPassword] = useState('')
-    // const onChangePassword = e => {
-    //     setPassword(e.target.value)
-    // }
-
-
+    const [password, setPassword] = useState('')
+    const onChangePassword = e => {
+        setPassword(e.target.value)
+    }
 
     const userData = useSelector(store => store.userReducer.data);
     const tokenInvalid = useSelector(store => store.userReducer.tokenInvalid);
     const getUserFail = useSelector(store => store.userReducer.getUserFail);
 
-    if (subpage==='profile' && userData===null) 
-    {
-        console.log( `userdata=${userData}`);
-        dispatch(authGetUserAndGetResult());
-    }
+    useEffect(() => 
+    {  
+        if (subpage==='') {
+            dispatch(authGetUserAndGetResult());
+            navigate('/profile/user');
+        }
 
-    if (subpage==='') {
-        dispatch(authGetUserAndGetResult());
-        navigate('/profile/user');
-    }
-
-    
-    useEffect(() => {  
-        
         if (subpage==='profile') {
             if (tokenInvalid || getUserFail) {
-                console.log(`tokenInvalid=${tokenInvalid}`);
+                console.log(`tokenInvalid=${tokenInvalid} getUserFail=${getUserFail}`);
                 dispatch({ type: LOGOUT_CLEAR });
                 navigate('/logout');
             }
+            else if (userData===null || userData === undefined) {
+                console.log( `userdata=${userData}`);
+                dispatch(authGetUserAndGetResult());
+            } 
             else if (userData !== null && userData !== undefined) {
                  setNameValue(userData.name);
                  setSrcNameValue(userData.name);
@@ -60,17 +54,18 @@ export const ProfilePage = (props) =>
                  setSrcEmailValue(userData.email);
             }   
         }
-    }, [userData, tokenInvalid, subpage, getUserFail]);
+    }, [userData, tokenInvalid, subpage, getUserFail, navigate, dispatch]);
 
-    const cancelClick = () => 
-    {
+
+    const onResetForm = (e) => {
+        e.preventDefault();
         setNameValue(srcNameValue);
         setEmailValue(srcEmailValue);
-    };
+      };
 
-    
-    const saveClick = () => 
-    {
+    const onSubmit = (e) => {
+        e.preventDefault();
+
         if (userData !== null && userData !== undefined) {
             userData.name = nameValue;
             userData.email = emailValue;
@@ -79,6 +74,8 @@ export const ProfilePage = (props) =>
         setSrcEmailValue(emailValue);
         dispatch(authSaveUserAndGetResult(nameValue, emailValue));
     };
+
+    const isDisabled = nameValue === srcNameValue && emailValue === srcEmailValue;
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row'}}>
@@ -115,7 +112,9 @@ export const ProfilePage = (props) =>
                 <p className={`text text_type_main-small text_color_inactive`} >изменить свои персональные данные</p>
             </div>
             {subpage==='exit' && <Navigate to={'/logout'} replace/>}
-            { subpage==='profile' && <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
+            { subpage==='profile' &&
+               <form onSubmit={onSubmit}> 
+               <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
@@ -127,7 +126,7 @@ export const ProfilePage = (props) =>
                     errorText={'Ошибка ввода имени'}
                     size={'default'}
                     extraClass={`text text_type_main-medium mt-20 mb-4`}
-                    
+                    icon="EditIcon"
                     onIconClick={e => setNameValue(e.target.value)}
                     />
                 <Input
@@ -141,22 +140,23 @@ export const ProfilePage = (props) =>
                     errorText={'Ошибка ввода логина'}
                     size={'default'}
                     extraClass={`mb-4`}
+                    icon="EditIcon"
                     onIconClick={e => setEmailValue(e.target.value)}/>
-                {/* <PasswordInput
+                <PasswordInput
                     onChange={onChangePassword}
                     value={password}
                     name={'password'}
-                    extraClass="mb-2"
-                    icon="EditIcon" /> */}
+                    extraClass="mb-8"
+                    icon="EditIcon" /> 
                 <div style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'flex-end'}}>
-                    <Button htmlType="button" type="primary" size="medium" onClick={saveClick} extraClass="mr-4">
+                    <Button htmlType="button" type="primary" size="medium" extraClass="mr-4" disabled={isDisabled} onClick={onSubmit}>
                         Сохранить
                     </Button>
-                    <Button htmlType="button" type="primary" size="medium" onClick={cancelClick}>
+                    <Button htmlType="button" type="primary" size="medium" onClick={onResetForm} disabled={isDisabled}>
                         Отмена
                     </Button>
                 </div>
-            </div>}
+            </div></form>}
         </div>
     );
 } 

@@ -15,7 +15,7 @@ export const RecoveryPage = () =>
         if (passwordResetComplete) {
             navigate('/reset-password');
         }
-    }, [passwordResetComplete]);
+    }, [passwordResetComplete, dispatch, navigate]);
 
     const recoveryClick = () => 
     {

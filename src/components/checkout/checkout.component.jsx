@@ -45,7 +45,7 @@ export const Checkout = () =>
             dispatch({ type: LOGOUT_CLEAR });
             navigate('/logout');
         }
-    }, [orderNumFail, tokenInvalid])
+    }, [orderNumFail, tokenInvalid, dispatch, navigate])
 
     const checkoutVisible = buhData != null || ingredientsData.length > 0;
 
