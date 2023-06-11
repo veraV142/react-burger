@@ -3,6 +3,7 @@ import BurgerIngredients from '../../burger-ingredients/burger-ingredients.compo
 import BurgerConstructor from '../../burger-constructor/burger-constructor.component';
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../../services/actions/ingredientsLoad';
+import { LOGIN_FROM_ROUTE } from '../../../services/actions/login';
 
 export const HomePage = () => 
 {
@@ -10,6 +11,7 @@ export const HomePage = () =>
 
     useEffect(() => {  
       console.log('getIngredients()');
+      dispatch({type: LOGIN_FROM_ROUTE, fromRoute:'/'});
       dispatch(getIngredients());
     }, [dispatch]);
 
