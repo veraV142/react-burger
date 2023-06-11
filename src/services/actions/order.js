@@ -1,5 +1,4 @@
 import { sendOrder} from '../../utils/burger-api';
-import { setCookie, withCheckToken } from '../../utils/utils';
 
 export const GET_ORDER_NUM = 'GET_ORDER_NUM'
 export const GET_ORDER_NUM_SUCCESS = 'GET_ORDER_NUM_SUCCESS'

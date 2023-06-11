@@ -1,6 +1,6 @@
 import { Input, Button, PasswordInput,  } from '@ya.praktikum/react-developer-burger-ui-components'
-import { memo, useEffect} from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { memo} from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import styles from './enter.styles.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { authLoginAndGetResult } from '../../../services/actions/login';
@@ -10,8 +10,6 @@ export const EnterPage = () =>
 {
     console.log(`EnterPage`);
     
-
-    const navigate = useNavigate(); 
     const dispatch = useDispatch();
 
     const data = useSelector(store=>store.loginReducer.data);

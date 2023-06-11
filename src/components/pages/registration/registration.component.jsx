@@ -1,5 +1,5 @@
 import { Input, Button, PasswordInput,  } from '@ya.praktikum/react-developer-burger-ui-components'
-import { memo, useState, useRef, useEffect} from 'react';
+import { memo, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './registration.styles.module.css'
 import { useDispatch, useSelector } from "react-redux";

@@ -1,40 +1,4 @@
-import { TOKEN_INVALID } from "../services/actions/user";
-import { authToken } from "./burger-api";
 
-export function withCheckToken( dispatch, action, failAction ) {
-  const accessToken = getCookie('accessToken');
-  console.log(`withCheckToken  accessToken=${accessToken}`);
-  if (accessToken===null || accessToken==='undefined' || accessToken==='' || accessToken==='null') {
-      const refreshToken = getCookie('refreshToken');
-      console.log(`withCheckToken  refreshToken=${refreshToken}`);
-      if (refreshToken === '' || refreshToken === undefined || refreshToken === null)
-      {
-        dispatch({ type: TOKEN_INVALID });
-        return;
-      }
-      authToken(refreshToken)
-        .then(response=> {
-          if (response.success === 'true') {
-              saveTokens(response.accessToken, response.refreshToken);
-              action();
-          } 
-          else {
-              dispatch({ type: failAction });
-          }
-        })
-        .catch(error => {
-          console.log(`withCheckToken error=${error.message}`);
-          if (error.message === 'Token is invalid') {
-              dispatch({ type: TOKEN_INVALID });
-          }
-          else 
-              dispatch({ type: failAction });
-        });
-  }
-  else {
-    action();
-  }
-}
 
 export function saveTokens(accessToken, refreshToken) 
 {

@@ -1,5 +1,4 @@
 import { getAuthUser,saveAuthUser } from '../../utils/burger-api';
-import {  setCookie, withCheckToken } from '../../utils/utils';
 
 
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED'
@@ -55,7 +54,7 @@ export function authGetUserAndGetResult(token) {
 export function authSaveUserAndGetResult(name, email, password) {
     return function(dispatch) {
         dispatch({ type: SAVE_USER });
-        let tryAcceptToken = false;
+        //let tryAcceptToken = false;
 
         const saveUser = () => {
             saveAuthUser(name, email, password)
@@ -71,15 +70,15 @@ export function authSaveUserAndGetResult(name, email, password) {
                 })
                 .catch((error) => 
                 {
-                    console.log(`GU_ERROR  ${error.message}`);
-                    if (error.message === 'jwt expired' && tryAcceptToken ==='false') {
-                        console.log(`GU_ERROR_jwt ${tryAcceptToken}`);
-                        setCookie('accessToken', null, 0);
-                        tryAcceptToken = true;
-                        withCheckToken(dispatch, saveUser, SAVE_USER_FAIL);
-                    }
-                    else 
-                        dispatch({ type: SAVE_USER_FAIL });
+                    // console.log(`GU_ERROR  ${error.message}`);
+                    // if (error.message === 'jwt expired' && tryAcceptToken ==='false') {
+                    //     console.log(`GU_ERROR_jwt ${tryAcceptToken}`);
+                    //     setCookie('accessToken', null, 0);
+                    //     tryAcceptToken = true;
+                    //     withCheckToken(dispatch, saveUser, SAVE_USER_FAIL);
+                    // }
+                    // else 
+                    dispatch({ type: SAVE_USER_FAIL });
                 })
         };
 

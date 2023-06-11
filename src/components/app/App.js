@@ -11,7 +11,7 @@ import { ResetPage } from "../pages/reset/reset.component"
 import { ProfilePage } from "../pages/profile/profile.component"
 import { NotFoundPage } from "../pages/notfound/notfound.component"
 import { ProtectedRouteElement } from '../protected-route/protected-route.component';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import IngredientsPage from '../pages/ingregients/ingredients.component';
 import { LogoutPage } from '../pages/logout/logout.component';
 import Modal from '../modal/modal.component';
@@ -21,10 +21,8 @@ import { DROP_FULL_INGREDIENT_DATA } from '../../services/actions/fullIngredient
 
 function App() 
 {
-  //const showedIngredient = useSelector(store => store.fullIngredientDataReducer.ingredient);
   const location = useLocation();
   const background = location.state?.background;
-  //const fromRoute = location.state?.fromRoute;
 
   console.log(`background=${background} state=${location.state?.fromRoute}`)
 

@@ -1,26 +1,15 @@
 import BurgerTabPanel from '../burger-tab-panel/burger-tab-panel.component'
 import BurgerListElements from '../burger-list-elements/burger-list-elements.component'
-import IngredientDetails from '../ingredient-details/ingredient-details.component';
-import Modal from '../modal/modal.component';
-import { useSelector, useDispatch } from "react-redux";
-import { ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA } from '../../services/actions/fullIngredientData'
-import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ADD_FULL_INGREDIENT_DATA} from '../../services/actions/fullIngredientData'
 
 const BurgerIngredients = () => 
 {
     const dispatch = useDispatch();
-    //const showedIngredient = useSelector(store => store.fullIngredientDataReducer.ingredient);
 
-    //const navigate = useNavigate(); 
     const onShowIngredient = (data) => {
         dispatch({ type: ADD_FULL_INGREDIENT_DATA, ingredient: data.ingredient });
-        //navigate(`/ingredients/${data.ingredient._id}`, {replace:false});
     };
-
-    // const onCloseIngredient = () => {
-    //     dispatch({ type: DROP_FULL_INGREDIENT_DATA });
-    //     navigate(`/`);
-    // };
 
     return (
         <div>

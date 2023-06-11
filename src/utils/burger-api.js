@@ -16,6 +16,7 @@ const fetchWithRefresh = async (url, options) => {
             return Promise.reject(err);
         const refreshData = await authToken(refreshToken); //обновляем токен
 
+        console.log(`updateTokens`);
         console.log(`fetchWithRefresh==> refreshData.accessToken=${refreshData.accessToken}  refreshData.refreshToken=${refreshData.refreshToken}`);
 
         saveTokens(refreshData.accessToken, refreshData.refreshToken);
