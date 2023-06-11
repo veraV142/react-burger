@@ -1,60 +1,66 @@
 import { Input, Button, PasswordInput,  } from '@ya.praktikum/react-developer-burger-ui-components'
-import { memo, useState, useRef, useEffect} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { memo, useEffect} from 'react';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import styles from './enter.styles.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { authLoginAndGetResult } from '../../../services/actions/login';
+import { useFormState } from '../../../utils/use-form-state';
 
 export const EnterPage = () => 
 {
+    console.log(`EnterPage`);
+    
+
     const navigate = useNavigate(); 
     const dispatch = useDispatch();
 
     const data = useSelector(store=>store.loginReducer.data);
+    const fromRoute = useSelector(store=>store.loginReducer.loginFromRoute);
 
-    useEffect(() => {
-        if (data !== null) {
-            console.log('EnterPage data accepted');
-            navigate('/');
-        }
-    }, 
-    [data, dispatch, navigate]);
+    console.log(`fromRoute=${fromRoute}`);
 
-    const [emailValue, setEmailValue] = useState('')
-    const inputEmailRef = useRef(null)
+    const { values, handleChange, setValues } = useFormState({
+        email: '',
+        password: '',
+    });
 
-    const [password, setPassword] = useState('')
-    const onChangePassword = e => {
-        setPassword(e.target.value)
-    }
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch(authLoginAndGetResult(values.email, values.password));
+        setValues({
+            ...values,
+            password: "",
+          });
+    };
 
-    const enterClick = () => 
-    {
-        dispatch(authLoginAndGetResult(emailValue, password));
+    if (data !== null) {
+        return <Navigate to={fromRoute || '/'} /> 
     }
 
     return (
+        <form onSubmit={onSubmit}> 
         <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'center'}}>
             <p className={`text text_type_main-medium mt-20 mb-4 ${styles.text_center}`}>Вход</p>
-            <Input
-                type={'text'}
-                placeholder={'E-mail'}
-                onChange={e => setEmailValue(e.target.value)}
-                value={emailValue}
-                name={'email'}
-                error={false}
-                ref={inputEmailRef}
-                errorText={'Ошибка ввода e-mail'}
-                size={'default'}
-                extraClass="mb-4"/>
-            <PasswordInput
-                onChange={onChangePassword}
-                value={password}
-                name={'password'}
-                extraClass="mb-8"/>
-            <Button htmlType="button" type="primary" size="medium" onClick={enterClick}>
-                Войти
-            </Button>
+            
+                <Input
+                    type={'text'}
+                    placeholder={'E-mail'}
+                    onChange={handleChange}
+                    value={values.email}
+                    name={'email'}
+                    error={false}
+                    errorText={'Ошибка ввода e-mail'}
+                    size={'default'}
+                    extraClass="mb-4"/>
+                <PasswordInput
+                    onChange={handleChange}
+                    value={values.password}
+                    name={'password'}
+                    extraClass="mb-8"/>
+                <Button type="primary" size="medium" htmlType='submit'>
+                    Войти
+                </Button>
+            
             <div className='mt-20' style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'center'}}>
                 <p>Вы - новый пользователь?</p>
                 <Link to='/register' className='mt-4 ml-2'>
@@ -68,6 +74,7 @@ export const EnterPage = () =>
                 </Link>
             </div>
         </div>
+        </form>
     );
 } 
 

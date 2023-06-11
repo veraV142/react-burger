@@ -1,37 +1,42 @@
-import { Input, Button, PasswordInput  } from '@ya.praktikum/react-developer-burger-ui-components'
-import { memo, useState, useRef, useEffect} from 'react';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { memo, useEffect} from 'react';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT_CLEAR } from '../../../services/actions/logout'
 import { authGetUserAndGetResult, authSaveUserAndGetResult } from '../../../services/actions/user';
+import { useFormState } from '../../../utils/use-form-state';
+
 
 export const ProfilePage = (props) => 
 {
+    console.log(`ProfilePage`);
+
     const subpage = props['subpage'];
 
+    const userData = useSelector(store => store.userReducer.data);
+    console.log( `userdata=${userData}`);
+    const name = userData?.name;
+    const email = userData?.email;
+    const { values, handleChange, setValues } = useFormState({
+        name: name??'',
+        email: email??'',
+        password: '',
+      });
+
     const dispatch = useDispatch();
-
-    const [nameValue, setNameValue] = useState('')
-    const [srcNameValue, setSrcNameValue] = useState('')
-    const inputNameRef = useRef(null)
-
-    const [emailValue, setEmailValue] = useState('')
-    const [srcEmailValue, setSrcEmailValue] = useState('')
-    const inputEmailRef = useRef(null)
-
     const navigate = useNavigate(); 
 
-    const [password, setPassword] = useState('')
-    const onChangePassword = e => {
-        setPassword(e.target.value)
-    }
-
-    const userData = useSelector(store => store.userReducer.data);
     const tokenInvalid = useSelector(store => store.userReducer.tokenInvalid);
     const getUserFail = useSelector(store => store.userReducer.getUserFail);
 
     useEffect(() => 
-    {  
+    {   
+        setValues({
+            name: name??'',
+            email: email??'',
+            password: "",
+          });
+
         if (subpage==='') {
             dispatch(authGetUserAndGetResult());
             navigate('/profile/user');
@@ -47,35 +52,28 @@ export const ProfilePage = (props) =>
                 console.log( `userdata=${userData}`);
                 dispatch(authGetUserAndGetResult());
             } 
-            else if (userData !== null && userData !== undefined) {
-                 setNameValue(userData.name);
-                 setSrcNameValue(userData.name);
-                 setEmailValue(userData.email);
-                 setSrcEmailValue(userData.email);
-            }   
         }
     }, [userData, tokenInvalid, subpage, getUserFail, navigate, dispatch]);
 
-
     const onResetForm = (e) => {
         e.preventDefault();
-        setNameValue(srcNameValue);
-        setEmailValue(srcEmailValue);
+        setValues({
+            name: name,
+            email: email,
+            password: "",
+          });
       };
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        if (userData !== null && userData !== undefined) {
-            userData.name = nameValue;
-            userData.email = emailValue;
-        }
-        setSrcNameValue(nameValue);
-        setSrcEmailValue(emailValue);
-        dispatch(authSaveUserAndGetResult(nameValue, emailValue));
+        dispatch(authSaveUserAndGetResult(values.name, values.email, values.password));
+        setValues({
+            ...values,
+            password: "",
+          });
     };
 
-    const isDisabled = nameValue === srcNameValue && emailValue === srcEmailValue;
+    const isDisabled = values.name === name && values.email === email && values.password === '';
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row'}}>
@@ -112,51 +110,49 @@ export const ProfilePage = (props) =>
                 <p className={`text text_type_main-small text_color_inactive`} >изменить свои персональные данные</p>
             </div>
             {subpage==='exit' && <Navigate to={'/logout'} replace/>}
-            { subpage==='profile' &&
-               <form onSubmit={onSubmit}> 
+             
+              {subpage==='profile' && <form onSubmit={onSubmit}> 
                <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
-                    onChange={e => setNameValue(e.target.value)}
-                    value={nameValue}
+                    onChange={handleChange}
+                    value={values.name}
                     name={'name'}
                     error={false}
-                    ref={inputNameRef}
                     errorText={'Ошибка ввода имени'}
                     size={'default'}
                     extraClass={`text text_type_main-medium mt-20 mb-4`}
                     icon="EditIcon"
-                    onIconClick={e => setNameValue(e.target.value)}
                     />
                 <Input
                     type={'text'}
                     placeholder={'Логин'}
-                    onChange={e => setEmailValue(e.target.value)}
-                    value={emailValue}
+                    onChange={handleChange}
+                    value={values.email}
                     name={'email'}
                     error={false}
-                    ref={inputEmailRef}
                     errorText={'Ошибка ввода логина'}
                     size={'default'}
                     extraClass={`mb-4`}
-                    icon="EditIcon"
-                    onIconClick={e => setEmailValue(e.target.value)}/>
-                <PasswordInput
-                    onChange={onChangePassword}
-                    value={password}
+                    icon="EditIcon"/>
+                <Input
+                    placeholder={"Пароль"}
+                    onChange={handleChange}
+                    value={values.password}
                     name={'password'}
-                    extraClass="mb-8"
-                    icon="EditIcon" /> 
+                    icon={"EditIcon"}
+                    extraClass="mb-8"/> 
                 <div style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'flex-end'}}>
-                    <Button htmlType="button" type="primary" size="medium" extraClass="mr-4" disabled={isDisabled} onClick={onSubmit}>
+                    <Button  type="primary" size="medium" extraClass="mr-4" disabled={isDisabled} htmlType='submit'>
                         Сохранить
                     </Button>
-                    <Button htmlType="button" type="primary" size="medium" onClick={onResetForm} disabled={isDisabled}>
+                    <Button type="primary" size="medium" onClick={onResetForm} disabled={isDisabled} htmlType='reset'>
                         Отмена
                     </Button>
                 </div>
-            </div></form>}
+            </div>
+            </form>}
         </div>
     );
 } 

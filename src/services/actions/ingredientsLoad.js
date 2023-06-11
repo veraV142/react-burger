@@ -12,6 +12,7 @@ export function getIngredients() {
             .then((response) => {
               if (response.success === true) 
               {
+                console.log('GET_INGREDIENTS_SUCCESS')
                 dispatch({ type: GET_INGREDIENTS_SUCCESS, data: response.data });
               }
               else {

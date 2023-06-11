@@ -5,6 +5,7 @@ export const LOGIN = 'LOGIN'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const LOGIN_CLEAR = 'LOGIN_CLEAR'
+export const LOGIN_FROM_ROUTE = 'LOGIN_FROM_ROUTE'
 
 export function authLoginAndGetResult(email, password) {
     return function(dispatch) {

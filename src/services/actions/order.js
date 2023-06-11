@@ -10,33 +10,21 @@ export const CLEAR_INGREDIENTS = 'CLEAR_INGREDIENTS'
 export function sendOrderAndGetResult(data) {
     return function(dispatch) {
       dispatch({ type: GET_ORDER_NUM });
-      let tryAcceptToken = false;
-
-      const send = () => {
-        sendOrder(data)
-            .then((response) => {
-              if (response.success === true) 
-              {
-                dispatch({ type: GET_ORDER_NUM_SUCCESS, orderNum: response.order.number });
-              }
-              else {
-                dispatch({ type: GET_ORDER_NUM_FAIL });
-              }
-            })
-            .catch((error) => {
-              console.log(`GU_ERROR  ${error.message} ==== ${tryAcceptToken}`);
-              if (error.message === 'jwt expired' && tryAcceptToken === 'false') {
-                  console.log(`GU_ERROR_jwt ${tryAcceptToken}`);
-                  setCookie('accessToken', '', 0);
-                  tryAcceptToken = true;
-                  withCheckToken(dispatch, send, GET_ORDER_NUM_FAIL);
-              }
-              else 
-                  dispatch({ type: GET_ORDER_NUM_FAIL });
+      sendOrder(data)
+          .then((response) => {
+            if (response.success === true) 
+            {
+              console.log('GET_ORDER_NUM_SUCCESS');
+              dispatch({ type: GET_ORDER_NUM_SUCCESS, orderNum: response.order.number });
+            }
+            else {
+              console.log('GET_ORDER_NUM_FAIL');
               dispatch({ type: GET_ORDER_NUM_FAIL });
-            })
-      }
-
-      withCheckToken(dispatch, send, GET_ORDER_NUM_FAIL);
+            }
+          })
+          .catch((error) => {
+            console.log(`GET_ORDER_NUM_FAIL error ${error.message}`);
+            dispatch({ type: GET_ORDER_NUM_FAIL });
+          })
     }
 }

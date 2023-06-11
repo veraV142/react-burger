@@ -31,6 +31,7 @@
         case GET_USER_SUCCESS: {
             console.log(`GET_USER_SUCCESS email=${action.email}`);
             return {
+                ...state,
                 getUserRequest: false, 
                 getUserFail: false,
                 data: {
@@ -62,10 +63,14 @@
         case SAVE_USER_SUCCESS: {
             console.log(`SAVE_USER_SUCCESS email=${action.email} name=${action.name}`);
             return {
+                ...state,
                 saveUserRequest: false, 
                 saveUserFail: false,
                 saveUserSuccess:true,
-                
+                data: {
+                    email: action.email,
+                    name: action.name
+                }
             };
         }
         case SAVE_USER_FAIL: {

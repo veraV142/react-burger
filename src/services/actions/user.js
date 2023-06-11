@@ -18,7 +18,7 @@ export const SAVE_USER_FAIL = 'SAVE_USER_FAIL'
 export function authGetUserAndGetResult(token) {
     return function(dispatch) {
         dispatch({ type: GET_USER });
-        let tryAcceptToken = false;
+        //let tryAcceptToken = false;
 
         const getUser = () => {
             getAuthUser()
@@ -35,29 +35,30 @@ export function authGetUserAndGetResult(token) {
                 })
                 .catch((error) => 
                 {
-                    console.log(`GU_ERROR  ${error.message} ==== ${tryAcceptToken}`);
-                    if (error.message === 'jwt expired' && tryAcceptToken === 'false') {
-                        console.log(`GU_ERROR_jwt ${tryAcceptToken}`);
-                        setCookie('accessToken', '', 0);
-                        tryAcceptToken = true;
-                        withCheckToken(dispatch, getUser, GET_USER_FAIL);
-                    }
-                    else 
+                    // console.log(`GU_ERROR  ${error.message} ==== ${tryAcceptToken}`);
+                    // if (error.message === 'jwt expired' && tryAcceptToken === 'false') {
+                    //     console.log(`GU_ERROR_jwt ${tryAcceptToken}`);
+                    //     setCookie('accessToken', '', 0);
+                    //     tryAcceptToken = true;
+                    //     withCheckToken(dispatch, getUser, GET_USER_FAIL);
+                    // }
+                    // else 
                         dispatch({ type: GET_USER_FAIL });
                 })
         };
+        getUser();
 
-        withCheckToken(dispatch, getUser, GET_USER_FAIL);
+        //withCheckToken(dispatch, getUser, GET_USER_FAIL);
     }
 }
 
-export function authSaveUserAndGetResult(name, email) {
+export function authSaveUserAndGetResult(name, email, password) {
     return function(dispatch) {
         dispatch({ type: SAVE_USER });
         let tryAcceptToken = false;
 
         const saveUser = () => {
-            saveAuthUser(name, email)
+            saveAuthUser(name, email, password)
                 .then((response) => {
                 if (response.success === true) 
                 {
@@ -82,7 +83,8 @@ export function authSaveUserAndGetResult(name, email) {
                 })
         };
 
-        withCheckToken(dispatch, saveUser, SAVE_USER_FAIL);
+        saveUser();
+        //withCheckToken(dispatch, saveUser, SAVE_USER_FAIL);
     }
 }
     

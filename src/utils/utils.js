@@ -38,7 +38,7 @@ export function withCheckToken( dispatch, action, failAction ) {
 
 export function saveTokens(accessToken, refreshToken) 
 {
-  setCookie('accessToken', accessToken, 60*60*20)
+  setCookie('accessToken', accessToken, 60*60*24*30)
   setCookie('refreshToken', refreshToken, 60*60*24*30)
 
   console.log(`saveTokens: accessToken=${accessToken}; refreshToken=${refreshToken};`);
@@ -46,6 +46,7 @@ export function saveTokens(accessToken, refreshToken)
 
 export function clearTokens() 
 {
+  console.log(`clearTokens()`);
   setCookie('accessToken', '', 0)
   setCookie('refreshToken', '', 0)
 }

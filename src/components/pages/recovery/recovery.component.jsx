@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { passwordResetAndGetResult } from "../../../services/actions/password"
 import { useNavigate, Link } from "react-router-dom";
 import styles from './recovery.styles.module.css'
+import useFormState from '../../../utils/use-form-state';
 
 export const RecoveryPage = () => 
 {
@@ -17,31 +18,34 @@ export const RecoveryPage = () =>
         }
     }, [passwordResetComplete, dispatch, navigate]);
 
-    const recoveryClick = () => 
-    {
-        dispatch(passwordResetAndGetResult(emailValue));
-    }
+    const { values, handleChange} = useFormState({
+        email: ''
+    });
 
-    const [emailValue, setEmailValue] = useState('')
-    const inputEmailRef = useRef(null)
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch(passwordResetAndGetResult(values.email));
+    };
 
     return (
+        <form onSubmit={onSubmit}> 
         <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'center'}}>
             <p className={`text text_type_main-medium mt-20 mb-4 ${styles.text_center}`}>Восстановление пароля</p>
-            <Input
-                type={'text'}
-                placeholder={'E-mail'}
-                onChange={e => setEmailValue(e.target.value)}
-                value={emailValue}
-                name={'email'}
-                error={false}
-                ref={inputEmailRef}
-                errorText={'Ошибка ввода e-mail'}
-                size={'default'}
-                extraClass="mb-4"/>
-            <Button htmlType="button" type="primary" size="medium" onClick={recoveryClick}>
-                Восстановить
-            </Button>
+            
+                <Input
+                    type={'text'}
+                    placeholder={'E-mail'}
+                    onChange={handleChange}
+                    value={values.email}
+                    name={'email'}
+                    error={false}
+                    errorText={'Ошибка ввода e-mail'}
+                    size={'default'}
+                    extraClass="mb-4"/>
+                <Button type="primary" size="medium" htmlType='submit'>
+                    Восстановить
+                </Button>
+            
             <div className='mt-20' style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'center'}}>
                 <p>Вспомнили пароль?</p>
                 <Link to='/login' className='mt-4 ml-2'>
@@ -49,6 +53,7 @@ export const RecoveryPage = () =>
                 </Link>
             </div>
         </div>
+        </form>
     );
 } 
 

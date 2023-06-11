@@ -1,17 +1,41 @@
 import { dataUrl } from './data';
-import { getCookie } from './utils';
+import { getCookie, saveTokens } from './utils';
 
 export const checkReponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export function saveAuthUser(name, email) 
+const fetchWithRefresh = async (url, options) => {
+    try {
+      const res = await fetch(url, options); //делаем запрос
+      return await checkReponse(res);
+    } catch (err) {
+      if (err.message === "jwt expired") {
+        const refreshToken = getCookie('refreshToken');
+        if (refreshToken === null || refreshToken === undefined || refreshToken === '')
+            return Promise.reject(err);
+        const refreshData = await authToken(refreshToken); //обновляем токен
+
+        console.log(`fetchWithRefresh==> refreshData.accessToken=${refreshData.accessToken}  refreshData.refreshToken=${refreshData.refreshToken}`);
+
+        saveTokens(refreshData.accessToken, refreshData.refreshToken);
+        options.headers.authorization = refreshData.accessToken;
+        const res = await fetch(url, options); //вызываем перезапрос данных
+        return await checkReponse(res);
+      } else {
+        return Promise.reject(err);
+      }
+    }
+  };
+
+export function saveAuthUser(name, email, password) 
 {
-    const requestBody = {name:name, email:email};
+    const isPasswordChange = password !== null && password !== '' && password !== undefined;
+    const requestBody = isPasswordChange ? {name:name, email:email, password:password} : {name:name, email:email};
 
     const accessToken = getCookie('accessToken');
 
-    return fetch(`${dataUrl}/auth/user`, {
+    return fetchWithRefresh(`${dataUrl}/auth/user`, {
         method: 'PATCH',
         mode: 'cors',
         cache: 'no-cache',
@@ -23,8 +47,7 @@ export function saveAuthUser(name, email)
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
         body: JSON.stringify(requestBody)
-      })
-     .then(checkReponse)
+      });
 }
 
 export function sendOrder(ingredients) 
@@ -46,15 +69,14 @@ export function sendOrder(ingredients)
         body: JSON.stringify(order)
     };
 
-    return fetch(`${dataUrl}/orders`, requestOptions)
-        .then(checkReponse);
+    return fetchWithRefresh(`${dataUrl}/orders`, requestOptions);
 }
 
 export function getAuthUser() 
 {
     const accessToken = getCookie('accessToken');
 
-    return fetch(`${dataUrl}/auth/user`, {
+    return fetchWithRefresh(`${dataUrl}/auth/user`, {
         method: 'GET',
         mode: 'cors',
         cache: 'no-cache',
@@ -65,8 +87,7 @@ export function getAuthUser()
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
-      })
-     .then(checkReponse)
+      })//.then(checkReponse);
 }
 
 export function authLogout(refreshToken) 

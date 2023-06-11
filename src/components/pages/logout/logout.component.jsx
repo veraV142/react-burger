@@ -18,9 +18,15 @@ export const LogoutPage = () =>
             navigate('/login');
         }
         else {
-            const accessToken = getCookie('refreshToken');
+            
             dispatch({type: LOGIN_CLEAR});
-            dispatch(authLogoutAndGetResult(accessToken));
+
+            const refreshToken = getCookie('refreshToken');
+            if (refreshToken === '' || refreshToken === undefined || refreshToken === null) {
+                navigate('/login');
+            }
+            else 
+                dispatch(authLogoutAndGetResult(refreshToken));
         }
         
     }, [logoutSuccess, logoutFail, dispatch, navigate]);
