@@ -43,7 +43,7 @@ export function saveAuthUser(name, email, password)
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: accessToken
+          authorization: accessToken
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
@@ -66,7 +66,7 @@ export function sendOrder(ingredients)
 
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: accessToken },
+        headers: { 'Content-Type': 'application/json', authorization: accessToken },
         body: JSON.stringify(order)
     };
 
@@ -84,11 +84,11 @@ export function getAuthUser()
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: accessToken
+          authorization: accessToken
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
-      })//.then(checkReponse);
+      })
 }
 
 export function authLogout(refreshToken) 
