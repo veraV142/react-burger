@@ -10,10 +10,10 @@ class AppHeader extends React.Component {
         <header className={styles.header_line}>
           <div className={styles.header}>
             <div className={`${styles.icon_and_text}`}>
-              <MenuLabel text="Конструктор" isActive={true}> 
+              <MenuLabel text="Конструктор" isActive={true} links={["/", "/ingredients"]}> 
                 <BurgerIcon type="primary"/>
               </MenuLabel>
-              <MenuLabel text="Лента заказов" isActive={false}> 
+              <MenuLabel text="Лента заказов" isActive={false} links={["/ribbon"]}> 
                 <ListIcon type="secondary"/>
               </MenuLabel>
             </div>
@@ -23,7 +23,7 @@ class AppHeader extends React.Component {
             </div>
             
             <div className={`${styles.icon_and_text}`}>
-              <MenuLabel text="Личный кабинет"  isActive={false}> 
+              <MenuLabel text="Личный кабинет"  isActive={false} links={["/profile"]}> 
                 <ProfileIcon type="secondary"/>
               </MenuLabel>
             </div>

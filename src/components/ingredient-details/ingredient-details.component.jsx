@@ -2,9 +2,10 @@ import React from "react";
 import styles from "./ingredient-details.styles.module.css";
 import { useSelector } from "react-redux";
 
-const IngredientDetails = () => {
+const IngredientDetails = (props) => {
 
-    const ingredient = useSelector(store => store.fullIngredientDataReducer.ingredient);
+    const storeIngredient = useSelector(store => store.fullIngredientDataReducer.ingredient);
+    const ingredient = props.ingredient ?? storeIngredient;
 
     return (
       <div className={styles.in_det_panel}>

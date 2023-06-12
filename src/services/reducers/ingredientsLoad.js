@@ -21,6 +21,7 @@ import {
               };
           }
           case GET_INGREDIENTS_SUCCESS: {
+            console.log('GET_INGREDIENTS_SUCCESS');
             return  {
                 ...state,
                 dataRequest: false,
