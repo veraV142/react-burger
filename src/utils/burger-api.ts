@@ -5,7 +5,7 @@ export const checkReponse = <T>(res: Response): Promise <T> => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-const fetchWithRefresh = async <T>(url:string, options:any):Promise<T> => {
+const fetchWithRefresh = async <T>(url:string, options:RequestInit):Promise<T> => {
     try {
       const res = await fetch(url, options); //делаем запрос
       return await checkReponse<T>(res);
@@ -20,7 +20,15 @@ const fetchWithRefresh = async <T>(url:string, options:any):Promise<T> => {
         console.log(`fetchWithRefresh==> refreshData.accessToken=${refreshData.accessToken}  refreshData.refreshToken=${refreshData.refreshToken}`);
 
         saveTokens(refreshData.accessToken??"", refreshData.refreshToken??"");
-        options.headers.authorization = refreshData.accessToken??"";
+        
+        options = {
+            ...options, 
+            headers: {
+                ...options.headers,
+                'authorization': refreshData.accessToken??""
+            }
+        }
+
         const res = await fetch(url, options); //вызываем перезапрос данных
         return await checkReponse<T>(res);
       } else {
@@ -79,7 +87,7 @@ export function sendOrder(ingredients: Array<TIngredient>)
 
     const accessToken = getCookie('accessToken');
 
-    const requestOptions: TRequestOptions = {
+    const requestOptions: RequestInit = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', authorization: accessToken??"" },
         body: JSON.stringify(order)
@@ -93,7 +101,7 @@ export function getAuthUser()
     const accessToken = getCookie('accessToken');
     console.log(`getAuthUser(): accessToken = ${accessToken}`);
 
-    const options: TRequestOptions = {
+    const options: RequestInit = {
         method: 'GET',
         mode: 'cors',
         cache: 'no-cache',

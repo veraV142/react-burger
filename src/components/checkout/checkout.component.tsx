@@ -34,11 +34,11 @@ export const Checkout: FC  = () =>
         }
         const ingredients: Array<TIngredient> = [];
         if (buhData !== undefined) {
-            ingredients.push(buhData);
-            ingredients.push(buhData);
+            ingredients.push(buhData as TIngredient);
+            ingredients.push(buhData as TIngredient);
         }
 
-        ingredientsData.forEach(ing => ingredients.push(ing))
+        ingredientsData.forEach(ing => ingredients.push(ing as TIngredient))
         dispatch(sendOrderAndGetResult(ingredients));
     };
     

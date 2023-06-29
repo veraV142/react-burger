@@ -1,4 +1,4 @@
-import  {FC} from 'react';
+import  {FC, FormEvent, SyntheticEvent} from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { memo, useEffect} from 'react';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ interface IProfilePageProps {
     subpage: string
 }
 
-export const ProfilePage:FC<IProfilePageProps> = (props:IProfilePageProps) => 
+export const ProfilePage:FC<IProfilePageProps> = (props) => 
 {
     console.log(`ProfilePage`);
 
@@ -60,16 +60,16 @@ export const ProfilePage:FC<IProfilePageProps> = (props:IProfilePageProps) =>
         }
     }, [userData, tokenInvalid, subpage, getUserFail, navigate, dispatch]);
 
-    const onResetForm = (e:any) => {
+    const onResetForm = (e: SyntheticEvent<Element, Event>) => {
         e.preventDefault();
         setValues({
-            name: name,
-            email: email,
+            name: name??"",
+            email: email??"",
             password: "",
           });
       };
 
-    const onSubmit = (e:any) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(authSaveUserAndGetResult(values.name, values.email, values.password));
         setValues({

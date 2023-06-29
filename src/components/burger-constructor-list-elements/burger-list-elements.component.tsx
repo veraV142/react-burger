@@ -11,7 +11,7 @@ interface IBurgerConstructorProps {
     showIngredient: (data: TIngredient, selected: boolean) => void
 }
 
-const BurgerConstructorListElements: FC<IBurgerConstructorProps> = (props: IBurgerConstructorProps)=>
+const BurgerConstructorListElements: FC<IBurgerConstructorProps> = (props)=>
 {
     const scrollHeight = Math.max(
         document.body.scrollHeight, document.documentElement.scrollHeight,

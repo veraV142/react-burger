@@ -1,4 +1,4 @@
-import { TIngredient } from "../../utils/data"
+import { TIngredient, TIngredientExt } from "../../utils/data"
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'
 export const DROP_INGREDIENT = 'DROP_INGREDIENT'
@@ -8,7 +8,7 @@ export const CLEAR_INGREDIENTS = 'CLEAR_INGREDIENTS'
 
 export interface IAddIngredient {
 	type: typeof ADD_INGREDIENT;
-  data: TIngredient;
+  data: TIngredient|TIngredientExt;
 }
 
 export interface IDropIngredient {

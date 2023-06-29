@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, FormEvent} from 'react';
 import { Input, Button, PasswordInput,  } from '@ya.praktikum/react-developer-burger-ui-components'
 import { memo, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ export const RegistrationPage:FC = () =>
         password: ''
     });
 
-    const onSubmit = (e:any) => {
+    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(authRegisterAndGetResult(values.email, values.password, values.name));
         setValues({

@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, FormEvent} from 'react';
 import { Input, Button, PasswordInput,  } from '@ya.praktikum/react-developer-burger-ui-components'
 import { memo} from 'react';
 import { Link, Navigate } from 'react-router-dom';
@@ -6,6 +6,11 @@ import styles from './enter.styles.module.css'
 import { authLoginAndGetResult } from '../../../services/actions/login';
 import { useFormState } from '../../../utils/use-form-state';
 import { useDispatch, useSelector } from '../../../services/types';
+
+interface IEnterPageFormEvent {
+    email: string,
+    password: string
+}
 
 export const EnterPage:FC = () => 
 {
@@ -23,7 +28,7 @@ export const EnterPage:FC = () =>
         password: '',
     });
 
-    const onSubmit = (e:any) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(authLoginAndGetResult(values.email, values.password));
         setValues({

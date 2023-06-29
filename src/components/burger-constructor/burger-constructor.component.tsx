@@ -6,10 +6,10 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT } from "../.
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from '../../services/types';
 import { FC } from "react";
-import { TIngredient } from '../../utils/data';
+import { TIngredient, TIngredientExt } from '../../utils/data';
 
 interface TDrop {
-	ingredient: TIngredient;
+	ingredient: TIngredient | TIngredientExt;
 }
 
 export const BurgerConstructor: FC = () => 
@@ -49,9 +49,9 @@ export const BurgerConstructor: FC = () =>
                 <ConstructorElement
                     type={'top'}
                     isLocked={false}
-                    text={`${selectedBun.name} (верх)`}
-                    price={selectedBun.price}
-                    thumbnail={selectedBun.image??""}
+                    text={`${(selectedBun as TIngredient).name} (верх)`}
+                    price={(selectedBun as TIngredient).price}
+                    thumbnail={(selectedBun as TIngredient).image??""}
                     handleClose={() => dropIngredient(undefined)}
                 />}
             </div>
@@ -59,8 +59,8 @@ export const BurgerConstructor: FC = () =>
                 style={{overflowY: 'auto', maxHeight: `${scrollHeight}px`, scrollbarWidth: 'thin' }}>
                 {selectedIngredients && selectedIngredients.map((elem) => {
                     return (
-                        <div key={elem.uuid}>
-                            <FillingElement uuid={`${elem.uuid}`} />
+                        <div key={(elem as TIngredientExt).uuid}>
+                            <FillingElement uuid={`${(elem as TIngredientExt).uuid}`} />
                         </div>
                     );
                 })}
@@ -71,9 +71,9 @@ export const BurgerConstructor: FC = () =>
                 <ConstructorElement
                     type={'bottom'}
                     isLocked={false}
-                    text={`${selectedBun.name} (низ)`}
-                    price={selectedBun.price}
-                    thumbnail={selectedBun.image??""}
+                    text={`${(selectedBun as TIngredient).name} (низ)`}
+                    price={(selectedBun as TIngredient).price}
+                    thumbnail={(selectedBun as TIngredient).image??""}
                     handleClose={() => dropIngredient(undefined)}
                 />}
             </div>
@@ -95,7 +95,7 @@ const FillingElement = (props: TFillingElementProps) =>
     const selectedIngredients = useSelector(store => 
         store.ingredientConstructorReducer.selectedIngredients);
 
-    const elem = selectedIngredients.filter(si => si.uuid === props.uuid)[0];
+    const elem = selectedIngredients.filter(si => (si as TIngredientExt).uuid === props.uuid)[0];
 
     const dispatch = useDispatch();
 
@@ -106,7 +106,7 @@ const FillingElement = (props: TFillingElementProps) =>
 
     const [{ isDrag }, drag] = useDrag({
         type: "fillings",
-        item: { uuid: elem.uuid },
+        item: { uuid: (elem as TIngredientExt).uuid },
         collect: (monitor) => ({
           isDrag: monitor.isDragging(),
         }),
@@ -118,9 +118,9 @@ const FillingElement = (props: TFillingElementProps) =>
         accept: "fillings",
         
         hover: (item:IDrop) => {
-            if (item.uuid === elem.uuid)
+            if (item.uuid === (elem as TIngredientExt).uuid)
                 return;
-            dispatch({ type: MOVE_INGREDIENT, fromItemIndex: elem.uuid, toItemIndex: item.uuid });
+            dispatch({ type: MOVE_INGREDIENT, fromItemIndex: (elem as TIngredientExt).uuid, toItemIndex: item.uuid });
         },
     });
 
@@ -131,10 +131,10 @@ const FillingElement = (props: TFillingElementProps) =>
                             </span>
                             <ConstructorElement
                                 isLocked={false}
-                                text={elem.name??""}
-                                price={elem.price??0}
-                                thumbnail={elem.image??""}
-                                handleClose={() => dropIngredient(elem.uuid)}
+                                text={(elem as TIngredient).name??""}
+                                price={(elem as TIngredient).price??0}
+                                thumbnail={(elem as TIngredient).image??""}
+                                handleClose={() => dropIngredient((elem as TIngredientExt).uuid)}
                             />
                         </div>
     ))

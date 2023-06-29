@@ -5,7 +5,7 @@ import { passwordNewAndGetResult } from "../../../services/actions/password"
 import { LOGOUT_CLEAR } from '../../../services/actions/logout';
 import useFormState from '../../../utils/use-form-state';
 import { useDispatch, useSelector } from '../../../services/types';
-import React, {FC} from 'react';
+import React, {FC, FormEvent} from 'react';
 import styles from '../registration/registration.styles.module.css'
 
 export const ResetPage:FC = () => 
@@ -27,7 +27,7 @@ export const ResetPage:FC = () =>
         }
     }, [dispatch, navigate, passwordNewComplete]);
 
-    const onSubmit = (e:any) => {
+    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(passwordNewAndGetResult(values.password, values.code));
         setValues({

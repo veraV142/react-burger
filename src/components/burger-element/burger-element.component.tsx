@@ -11,7 +11,7 @@ interface IBurgerElementProps {
     showIngredient: (data: TIngredient, selected: boolean) => void
 }
 
-const BurgerElement: FC<IBurgerElementProps> = (props:IBurgerElementProps) => 
+const BurgerElement: FC<IBurgerElementProps> = (props) => 
 {
     const location = useLocation();
 
@@ -24,9 +24,9 @@ const BurgerElement: FC<IBurgerElementProps> = (props:IBurgerElementProps) =>
       });
 
     const selectedBunCount = useSelector(store => 
-        store.ingredientConstructorReducer.selectedBun === null || store.ingredientConstructorReducer.selectedBun?._id !== props.data._id ? 0 : 2);
+        store.ingredientConstructorReducer.selectedBun === null || (store.ingredientConstructorReducer.selectedBun as TIngredient)?._id !== props.data._id ? 0 : 2);
     const selectedIngredientCount = useSelector(store => store.ingredientConstructorReducer.selectedIngredients
-        .filter(si => si._id === props.data._id).length);
+        .filter(si => (si as TIngredient)._id === props.data._id).length);
     const countEl = props.data.type === 'bun' ? selectedBunCount : selectedIngredientCount;
 
     return ( 

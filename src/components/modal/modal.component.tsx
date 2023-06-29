@@ -16,7 +16,7 @@ const Modal = (props:IModal) => {
     const modalRoot:Element|DocumentFragment = document.getElementById("react-modals")??new HTMLElement();
 
     useEffect(() => {
-        const closePopupWithEsc = (evt:any) => {
+        const closePopupWithEsc = (evt:KeyboardEvent) => {
           if (evt.key === "Escape") {
             onClose();
           }

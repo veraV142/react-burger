@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, FormEvent} from 'react';
 import { Input, Button, } from '@ya.praktikum/react-developer-burger-ui-components'
 import { memo, useEffect} from 'react';
 import { passwordResetAndGetResult } from "../../../services/actions/password"
@@ -23,7 +23,7 @@ export const RecoveryPage:FC = () =>
         email: ''
     });
 
-    const onSubmit = (e:any) => {
+    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(passwordResetAndGetResult(values.email));
     };

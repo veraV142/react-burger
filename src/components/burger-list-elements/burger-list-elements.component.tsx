@@ -10,7 +10,7 @@ interface IBurgerElementProps {
     showIngredient: (data: TIngredient, selected: boolean) => void
 }
 
-const BurgerListElements: FC<IBurgerElementProps> = (props:IBurgerElementProps) => 
+const BurgerListElements: FC<IBurgerElementProps> = (props) => 
 {
     const [refBun, bunInView] = useInView({ threshold: 0 })
     const [refSauce, sauceInView] = useInView({ threshold: 0 })

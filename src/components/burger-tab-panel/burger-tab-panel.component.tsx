@@ -7,7 +7,7 @@ interface IBurgerTabPanelProps {
     selectTab: (currTab: string) => void
 }
 
-const BurgerTabPanel: FC<IBurgerTabPanelProps> = (props:IBurgerTabPanelProps) => 
+const BurgerTabPanel: FC<IBurgerTabPanelProps> = (props) => 
 {
     const currentTab = useSelector(store => store.tabChangeReducer.tab);
     const dispatch = useDispatch();

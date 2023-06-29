@@ -9,7 +9,7 @@ interface IMenuLabel  {
   links: Array<string>
 }
 
-const MenuLabel:FC<IMenuLabel> = (props:IMenuLabel) =>
+const MenuLabel:FC<IMenuLabel> = (props) =>
 {
     const location = useLocation();
     const links = props.links;

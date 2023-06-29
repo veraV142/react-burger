@@ -1,9 +1,9 @@
-import { TIngredient } from '../../utils/data';
+import { TIngredient, TIngredientExt } from '../../utils/data';
 import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGREDIENTS, IIngredientConstructorAction } from '../actions/ingredientConstructor';
 
   export type TIngredientsState = {
-    selectedIngredients: Array<TIngredient>, 
-    selectedBun?: TIngredient,
+    selectedIngredients: Array<TIngredient|TIngredientExt>, 
+    selectedBun?: TIngredient|TIngredientExt,
     sum: number,
     dragIngredientIndex?: string
   }
@@ -19,12 +19,12 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGRE
       switch (action.type) {
           case ADD_INGREDIENT: {
               
-              const newSelIng: TIngredient = { ...action.data, uuid: action.data.uuid };
+              const newSelIng: TIngredient|TIngredientExt = { ...action.data, uuid: (action.data as TIngredientExt).uuid };
 
               return {
                 ...state,
-                selectedBun: action.data.type === 'bun' ? action.data : state.selectedBun, 
-                selectedIngredients: action.data.type !== 'bun' ? 
+                selectedBun: (action.data as TIngredient).type === 'bun' ? action.data : state.selectedBun, 
+                selectedIngredients: (action.data as TIngredient).type !== 'bun' ? 
                     [...state.selectedIngredients, newSelIng ] : [...state.selectedIngredients]
               };
           }
@@ -33,7 +33,7 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGRE
                 ...state,
                 selectedBun: action.uuid === undefined ? undefined : state.selectedBun, 
                 selectedIngredients: action.uuid !== null ? 
-                    state.selectedIngredients.filter(si => si.uuid !== action.uuid ) : 
+                    state.selectedIngredients.filter(si => (si as TIngredientExt).uuid !== action.uuid ) : 
                     [...state.selectedIngredients]
             };
           }
@@ -47,9 +47,9 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGRE
           case CALC_SUM: {
             let newSum = 0;
             if (state.selectedBun !== null)
-                newSum += state.selectedBun ? state.selectedBun.price : 0;
+                newSum += state.selectedBun ? (state.selectedBun as TIngredient).price : 0;
 
-            state.selectedIngredients.forEach(si => newSum += si.price );
+            state.selectedIngredients.forEach(si => newSum += (si as TIngredient).price );
 
             return  {
                 ...state,
@@ -67,9 +67,9 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGRE
             let toPos = 0;
             for (let i = 0; i < newSelectedIngredients.length; i++) {
                 let elem = newSelectedIngredients[i];
-                if (elem.uuid === fromItemIndex)
+                if ((elem as TIngredientExt).uuid === fromItemIndex)
                     fromPos = i;
-                if (elem.uuid === toItemIndex)
+                if ((elem as TIngredientExt).uuid === toItemIndex)
                     toPos = i;
             }
 

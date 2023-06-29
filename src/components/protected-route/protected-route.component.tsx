@@ -18,7 +18,7 @@ interface IState {
     redirectLink: string
 }
 
-const ProtectedRouteElement: FC<IProtectedRouteElementProps> = (props:IProtectedRouteElementProps) =>
+const ProtectedRouteElement: FC<IProtectedRouteElementProps> = (props) =>
 {
     const [isUserLoaded, setUserLoaded] = useState(false);
     const [state, setState] = useState<IState>();
