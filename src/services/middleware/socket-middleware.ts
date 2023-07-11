@@ -24,10 +24,14 @@ export const socketMiddleware = (url: string, actions: TWSActions, security: boo
       if (type === init) 
       {
         let additUrl = "";
-        if (security)
-            additUrl = `?token=${getCookie("accessToken")}`;
+        if (security) {
+            let accessToken = getCookie("accessToken");
+            accessToken = accessToken?.replace("Bearer ", "");
+            additUrl = `?token=${accessToken}`;
+        }
         const wsurl = url + additUrl;
 
+        console.log(`init socket url=${wsurl}`);
         socket = new WebSocket(wsurl);
                        
         socket.onopen = (event) => {

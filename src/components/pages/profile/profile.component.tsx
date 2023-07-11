@@ -14,12 +14,9 @@ interface IProfilePageProps {
 
 export const ProfilePage:FC<IProfilePageProps> = (props) => 
 {
-    console.log(`ProfilePage`);
-
     const subpage:string = props.subpage;
 
     const userData = useSelector(store => store.userReducer.data);
-    console.log( `userdata=${userData}`);
     const name = userData?.name;
     const email = userData?.email;
     const { values, handleChange, setValues } = useFormState({
@@ -49,13 +46,11 @@ export const ProfilePage:FC<IProfilePageProps> = (props) =>
 
         if (subpage==='profile') {
             if (tokenInvalid || getUserFail) {
-                console.log(`tokenInvalid=${tokenInvalid} getUserFail=${getUserFail}`);
                 dispatch({ type: LOGOUT_CLEAR });
                 navigate('/logout'); 
             }
             else
             if (userData === undefined) {
-                 console.log( `userdata=${userData}`);
                  dispatch(authGetUserAndGetResult());
              } 
         }

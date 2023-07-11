@@ -24,8 +24,6 @@ function App()
   const location = useLocation();
   const background = location.state?.background;
 
-  console.log(`background=${background} state=${location.state?.fromRoute}`)
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

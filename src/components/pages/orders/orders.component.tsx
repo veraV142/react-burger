@@ -11,14 +11,19 @@ export const OrdersPage:FC = () =>
 {
     const location = useLocation();
     const dispatch = useDispatch();
-    const orders: Array<TOrderData> = useSelector(store => store.ordersReducer.orders);
+    //const wsConnected = useSelector(store => store.ordersReducer.wsConnected);
+    //const orders: Array<TOrderData> = useSelector(store => store.ordersReducer.orders);
+    
+    const ordersState =  useSelector(store => store.ordersReducer);
+
 
     useEffect(() => {
-        dispatch(ordersInit());
+        if (!ordersState.wsConnected)
+            dispatch(ordersInit());
         return () => {
             dispatch(ordersClose());
         }
-    });
+    }, []);
 
     const showOrder = (order:TOrderData) => {
         
@@ -32,7 +37,7 @@ export const OrdersPage:FC = () =>
 
     return (
        <div  style={{overflowY: 'auto', overflowX: 'hidden', maxHeight: `${scrollHeight}px`, scrollbarWidth: 'thin'}}>
-            {orders && orders.map((order) => {
+            {ordersState.orders && ordersState.orders.map((order) => {
                 return (
                     <Link
                         to={{pathname: `/profile/orders/${order._id}` }}

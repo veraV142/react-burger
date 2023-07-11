@@ -14,15 +14,11 @@ interface IEnterPageFormEvent {
 
 export const EnterPage:FC = () => 
 {
-    console.log(`EnterPage`);
-    
     const dispatch = useDispatch();
 
     const data = useSelector(store=>store.loginReducer.data);
     const fromRoute = useSelector(store=>store.loginReducer.loginFromRoute);
-
-    console.log(`fromRoute=${fromRoute}`);
-
+    
     const { values, handleChange, setValues } = useFormState({
         email: '',
         password: '',
