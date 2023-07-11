@@ -37,9 +37,7 @@ const BurgerElement: FC<IBurgerElementProps> = (props) =>
                 to={{pathname: `/ingredients/${props.data._id}` }}
                 state= {{ background: location }}
                 onClick={() => props.showIngredient(props.data, true)}
-                className={`${styles.link}`}
-                >
-                    
+                className={`${styles.link}`}>
                         { countEl !== 0 && <Counter count={countEl} size="default" />}
                         <img src={props.data.image} alt={props.data.name} className="ml-4 mr-4 mt-6" />
     

@@ -6,6 +6,7 @@ import { LOGOUT_CLEAR } from '../../../services/actions/logout'
 import { authGetUserAndGetResult, authSaveUserAndGetResult } from '../../../services/actions/user';
 import { useFormState } from '../../../utils/use-form-state';
 import { useDispatch, useSelector } from '../../../services/types';
+import { OrdersPage } from '../orders/orders.component';
 
 interface IProfilePageProps {
     subpage: string
@@ -116,6 +117,10 @@ export const ProfilePage:FC<IProfilePageProps> = (props) =>
             </div>
             {subpage==='exit' && <Navigate to={'/logout'} replace/>}
              
+            {subpage==='orders' &&  
+                <OrdersPage />
+            }
+
               {subpage==='profile' && <form onSubmit={onSubmit}> 
                <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
                 <Input
