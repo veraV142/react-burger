@@ -11,11 +11,8 @@ export const OrdersPage:FC = () =>
 {
     const location = useLocation();
     const dispatch = useDispatch();
-    //const wsConnected = useSelector(store => store.ordersReducer.wsConnected);
-    //const orders: Array<TOrderData> = useSelector(store => store.ordersReducer.orders);
     
     const ordersState =  useSelector(store => store.ordersReducer);
-
 
     useEffect(() => {
         if (!ordersState.wsConnected)
@@ -33,10 +30,10 @@ export const OrdersPage:FC = () =>
         document.body.scrollHeight, document.documentElement.scrollHeight,
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
-        ) - 310;
+        ) - 140;
 
     return (
-       <div  style={{overflowY: 'auto', overflowX: 'hidden', maxHeight: `${scrollHeight}px`, scrollbarWidth: 'thin'}}>
+       <div className={`mt-8 ml-8`} style={{overflowY: 'auto', overflowX: 'hidden', maxHeight: `${scrollHeight}px`, scrollbarWidth: 'thin'}}>
             {ordersState.orders && ordersState.orders.map((order) => {
                 return (
                     <Link

@@ -17,6 +17,7 @@ import Modal from '../modal/modal.component';
 import IngredientDetails from '../ingredient-details/ingredient-details.component';
 import { DROP_FULL_INGREDIENT_DATA } from '../../services/actions/fullIngredientData';
 import ProtectedRouteElement from '../protected-route/protected-route.component';
+import { FeedPage } from '../pages/feed/feed.component';
 
 
 function App() 
@@ -43,6 +44,7 @@ function App()
                 <Route path="/ingredients/:id" element={<IngredientsPage />}/>
                 <Route path="/login" element={<ProtectedRouteElement element={<EnterPage />} revers={true}/>} />
                 <Route path="/logout" element={<LogoutPage />} />
+                <Route path="/feed" element={<FeedPage />} />
                 <Route path="/register" element={<ProtectedRouteElement element={<RegistrationPage />} route='/register' revers={true}/>} />
                 <Route path="/forgot-password" element={<ProtectedRouteElement element={<RecoveryPage />} route='/forgot-password' revers={true}/>} />
                 <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPage />} route='/reset-password' revers={true}/>} />

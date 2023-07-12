@@ -1,0 +1,10 @@
+.link {
+	text-decoration: none;
+	color: inherit
+}
+
+.main_control {
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-start; 
+  }

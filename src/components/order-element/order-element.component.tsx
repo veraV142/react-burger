@@ -25,25 +25,21 @@ export const OrderElement :FC<TOrderElement> = ({ order, status }) =>
     const max = order.ingredients.length;
     const rest = max - 6;
 
-    const orderIngredients = useMemo(() => {
-        return order?.ingredients.map((id) => {
-          return ingredients?.find((item) => {
-            return id === item._id;
-          });
+    const orderIngredients =  order?.ingredients.map((id) => {
+        return ingredients?.find((item) => {
+        return id === item._id;
         });
-    }, [order?.ingredients, ingredients]);
+    });
 
-    const totalPrice = useMemo(() => {
-        return orderIngredients?.reduce((sum, item) => {
+    const totalPrice = orderIngredients?.reduce((sum, item) => {
           if (item?.type === "bun") {
             return (sum += item.price * 2);
           }
           return (sum += item ? item.price : 0);
         }, 0);
-    }, [orderIngredients]);
 
     return (
-        <div className={styles.block}>
+        <div className={`${styles.block} mt-8`}>
             <div className={styles.orderNum}>
                 <p className="text text_type_digits-default">#{number}</p>
                 <p className="text text_type_main-default text_color_inactive">

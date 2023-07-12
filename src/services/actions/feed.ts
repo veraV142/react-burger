@@ -41,8 +41,8 @@ const twoField = (type: string, data: string) => {
     };
 }
 
-export const feedInit = (data: string) => {
-    return twoField(FEED_INIT, data);
+export const feedInit = () => {
+    return oneField(FEED_INIT);
 };
 export const feedClose = () => {
     return oneField(FEED_CLOSE);
