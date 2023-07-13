@@ -1,0 +1,38 @@
+.main {
+	max-width: 600px;
+	width: 100%;
+	display: grid;
+	grid-template-rows: auto 180px 170px auto;
+	gap: 70px;	
+}
+
+.orders {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	width: 100%;
+	max-height: 200px;
+}
+
+.list {
+	width: 100%;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	max-height: 250px;
+	flex-direction: column;
+}
+
+.done {
+	color: #66caca;
+}
+
+.work {
+	color: #d6f1f1;
+}
+
+.total {
+	text-shadow: 0px 0px 16px rgba(50, 50, 255, 0.25), 0px 0px 8px rgba(47, 47, 255, 0.25),
+		0px 4px 32px rgba(47, 47, 245, 0.5);
+}

@@ -6,7 +6,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 interface IModal {
   children?: ReactNode,
-  header: string,
+  header?: string,
   onClose: () => void,
   showed: boolean
 }

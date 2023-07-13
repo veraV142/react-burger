@@ -13,7 +13,7 @@ class AppHeader extends React.Component {
               <MenuLabel text="Конструктор" isActive={true} links={["/", "/ingredients"]}> 
                 <BurgerIcon type="primary"/>
               </MenuLabel>
-              <MenuLabel text="Лента заказов" isActive={false} links={["/ribbon"]}> 
+              <MenuLabel text="Лента заказов" isActive={false} links={["/feed"]}> 
                 <ListIcon type="secondary"/>
               </MenuLabel>
             </div>

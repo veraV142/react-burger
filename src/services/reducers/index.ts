@@ -10,6 +10,8 @@ import {loginReducer} from './login'
 import {logoutReducer} from './logout'
 import {userReducer} from './user'
 import {tokenReducer} from './token'
+import {feedReducer} from './feed'
+import {ordersReducer} from './orders'
 
 
 
@@ -25,5 +27,7 @@ export const rootReducer = combineReducers({
     loginReducer,
     logoutReducer,
     userReducer,
-    tokenReducer
+    tokenReducer,
+    ordersReducer,
+    feedReducer
 }) 

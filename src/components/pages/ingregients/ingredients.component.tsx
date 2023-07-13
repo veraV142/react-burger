@@ -19,9 +19,6 @@ const IngredientsPage: FC = () =>
                 const ing = response.data.find((item) => item._id === prms.id);
                 setIngredient(ing);
               }
-              else {
-                console.log('Ингредиент не найден');
-              }
             })
             .catch((error) => {
                console.log(error.message);

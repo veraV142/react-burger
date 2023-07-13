@@ -6,6 +6,7 @@ import { LOGOUT_CLEAR } from '../../../services/actions/logout'
 import { authGetUserAndGetResult, authSaveUserAndGetResult } from '../../../services/actions/user';
 import { useFormState } from '../../../utils/use-form-state';
 import { useDispatch, useSelector } from '../../../services/types';
+import { OrdersPage } from '../orders/orders.component';
 
 interface IProfilePageProps {
     subpage: string
@@ -13,12 +14,9 @@ interface IProfilePageProps {
 
 export const ProfilePage:FC<IProfilePageProps> = (props) => 
 {
-    console.log(`ProfilePage`);
-
     const subpage:string = props.subpage;
 
     const userData = useSelector(store => store.userReducer.data);
-    console.log( `userdata=${userData}`);
     const name = userData?.name;
     const email = userData?.email;
     const { values, handleChange, setValues } = useFormState({
@@ -48,13 +46,11 @@ export const ProfilePage:FC<IProfilePageProps> = (props) =>
 
         if (subpage==='profile') {
             if (tokenInvalid || getUserFail) {
-                console.log(`tokenInvalid=${tokenInvalid} getUserFail=${getUserFail}`);
                 dispatch({ type: LOGOUT_CLEAR });
                 navigate('/logout'); 
             }
             else
             if (userData === undefined) {
-                 console.log( `userdata=${userData}`);
                  dispatch(authGetUserAndGetResult());
              } 
         }
@@ -116,6 +112,10 @@ export const ProfilePage:FC<IProfilePageProps> = (props) =>
             </div>
             {subpage==='exit' && <Navigate to={'/logout'} replace/>}
              
+            {subpage==='orders' &&  
+                <OrdersPage />
+            }
+
               {subpage==='profile' && <form onSubmit={onSubmit}> 
                <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'stretch'}}>
                 <Input
