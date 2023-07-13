@@ -1,7 +1,6 @@
 import  { FC, memo, useEffect } from 'react';
 import { OrderElement } from '../../order-element/order-element.component';
 import { Link, useLocation } from 'react-router-dom';
-import { TOrderData } from '../../../utils/data';
 import { useDispatch, useSelector } from '../../../services/types';
 import styles from './orders.styles.module.css'
 import { ordersClose, ordersInit } from '../../../services/actions/orders';
@@ -22,10 +21,6 @@ export const OrdersPage:FC = () =>
         }
     }, []);
 
-    const showOrder = (order:TOrderData) => {
-        
-    };
-
     const scrollHeight = Math.max(
         document.body.scrollHeight, document.documentElement.scrollHeight,
         document.body.offsetHeight, document.documentElement.offsetHeight,
@@ -38,10 +33,9 @@ export const OrdersPage:FC = () =>
                 return (
                     <Link
                         to={{pathname: `/profile/orders/${order._id}` }}
-                        state= {{ background: location }}
-                        onClick={() => showOrder(order)}
+                        state= {{ order: location }}
                         className={`${styles.link}`}>
-                            <OrderElement order={order} status={false}/>
+                            <OrderElement order={order} status={true}/>
                     </Link>
                 )
             })}

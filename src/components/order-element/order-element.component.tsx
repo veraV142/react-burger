@@ -1,4 +1,4 @@
-import {FC, useMemo } from "react";
+import {FC } from "react";
 import { TOrderData } from "../../utils/data";
 import { useSelector } from "../../services/types";
 import styles from "./order-element.styles.module.css";
@@ -112,6 +112,6 @@ export const IconEl: FC<TIcon> = ({ image, alt }) => {
     );
 };
 
-function getStatusDesc(status: true|string):string {
+export function getStatusDesc(status: true|string):string {
     return status === "created" ? "Создан" : status === "pending" ? "Готовится" : "Выполнен"
 }

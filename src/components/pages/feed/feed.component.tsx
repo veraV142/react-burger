@@ -41,11 +41,11 @@ export const FeedPage:FC = () =>
                     return (
                         <div key={order._id}>
                             <Link
-                                to={{pathname: `/profile/feed/${order._id}` }}
-                                state= {{ background: location }}
+                                to={{pathname: `/feed/${order._id}` }}
+                                state= {{ feed: location }}
                                 onClick={() => showOrder(order)}
                                 className={`${styles.link}`}>
-                                    <OrderElement order={order} status={true}/>
+                                    <OrderElement order={order} status={false}/>
                             </Link>
                         </div>
                     )

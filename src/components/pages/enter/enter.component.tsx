@@ -7,10 +7,6 @@ import { authLoginAndGetResult } from '../../../services/actions/login';
 import { useFormState } from '../../../utils/use-form-state';
 import { useDispatch, useSelector } from '../../../services/types';
 
-interface IEnterPageFormEvent {
-    email: string,
-    password: string
-}
 
 export const EnterPage:FC = () => 
 {

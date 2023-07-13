@@ -7,7 +7,7 @@ export const FeedInfo:FC = () =>
     const feedState =  useSelector(store => store.feedReducer);
 
     const ordersComplete = feedState.orders.filter(order => order.status === 'done').slice(0, 13);
-    const ordersWork = feedState.orders.filter(order => order.status !== 'done').slice(0, 13);
+    const ordersWork = feedState.orders.filter(order => order.status === 'pending').slice(0, 13);
     const totalAll = feedState.total;
     const totalToday = feedState.totalToday;
 
@@ -28,10 +28,10 @@ export const FeedInfo:FC = () =>
             </div>
             <div className={`ml-10`}>
               <p className="text text_type_main-medium pb-4">В работе:</p>
-              <ul className={styles.order_list}>
+              <ul className={styles.list}>
                 {ordersWork.map((order) => {
                   return (
-                    <li className="text text_type_digits-default pb-2" key={order._id}>
+                    <li className={`${styles.work} text text_type_digits-default pb-2`} key={order._id}>
                       {order.number}
                     </li>
                   );
