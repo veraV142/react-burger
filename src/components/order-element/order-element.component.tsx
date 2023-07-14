@@ -1,9 +1,10 @@
-import {FC } from "react";
+import {FC, useEffect } from "react";
 import { TOrderData } from "../../utils/data";
-import { useSelector } from "../../services/types";
+import { useSelector, useDispatch } from "../../services/types";
 import styles from "./order-element.styles.module.css";
 import { toDate } from "../../utils/utils";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { getIngredients } from "../../services/actions/ingredientsLoad";
 
 type TOrderElement = {
     order: TOrderData;
@@ -17,6 +18,8 @@ type TIcon = {
 
 export const OrderElement :FC<TOrderElement> = ({ order, status }) => 
 { 
+    const dispatch = useDispatch();
+
     const ingredients = useSelector(
         (store) => store.ingredientsLoadReducer.data
     );
@@ -27,7 +30,7 @@ export const OrderElement :FC<TOrderElement> = ({ order, status }) =>
 
     const orderIngredients =  order?.ingredients.map((id) => {
         return ingredients?.find((item) => {
-        return id === item._id;
+            return id === item._id;
         });
     });
 
@@ -37,6 +40,11 @@ export const OrderElement :FC<TOrderElement> = ({ order, status }) =>
           }
           return (sum += item ? item.price : 0);
         }, 0);
+
+    useEffect(() => {
+        if (ingredients.length === 0)
+            dispatch(getIngredients());
+    }, []);
 
     return (
         <div className={`${styles.block} mt-8`}>

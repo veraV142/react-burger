@@ -72,21 +72,13 @@ export const OrderPanelPage:FC = () => {
         if (ingredients.length === 0)
             dispatch(getIngredients());
         else if (!order) {
-          if (path === orderPath) {
+          if (path === orderPath && !ordersState.wsConnected) {
             dispatch(ordersInit());
           }
-          if (path === feedPath) {
+          if (path === feedPath && !feedState.wsConnected) {
             dispatch(feedInit());
           }
         }
-        return () => {
-          if (path === orderPath) {
-            dispatch(ordersClose());
-          }
-          if (path === feedPath) {
-            dispatch(feedClose());
-          }
-        };
       }, [order]);
 
     const scrollHeight = Math.max(

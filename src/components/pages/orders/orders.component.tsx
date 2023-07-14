@@ -16,9 +16,6 @@ export const OrdersPage:FC = () =>
     useEffect(() => {
         if (!ordersState.wsConnected)
             dispatch(ordersInit());
-        return () => {
-            dispatch(ordersClose());
-        }
     }, []);
 
     const scrollHeight = Math.max(
@@ -31,12 +28,15 @@ export const OrdersPage:FC = () =>
        <div className={`mt-8 ml-8`} style={{overflowY: 'auto', overflowX: 'hidden', maxHeight: `${scrollHeight}px`, scrollbarWidth: 'thin'}}>
             {ordersState.orders && ordersState.orders.map((order) => {
                 return (
-                    <Link
-                        to={{pathname: `/profile/orders/${order._id}` }}
-                        state= {{ order: location }}
-                        className={`${styles.link}`}>
-                            <OrderElement order={order} status={true}/>
-                    </Link>
+                    <div key={order._id}>
+                        <Link
+                            to={{pathname: `/profile/orders/${order._id}` }}
+                            state= {{ order: location }}
+                            className={`${styles.link}`}>
+                                <OrderElement order={order} status={true}/>
+                        </Link>
+                    </div>
+                    
                 )
             })}
        </div>

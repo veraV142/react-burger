@@ -49,6 +49,7 @@ export const socketMiddleware = (url: string, actions: TWSActions, security: boo
         };
 
         socket.onclose = (event) => {
+            console.log(`close socket url=${wsurl}`);
             dispatch({
               type: close,
               data: event,

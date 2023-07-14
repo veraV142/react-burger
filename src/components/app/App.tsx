@@ -10,7 +10,6 @@ import { RecoveryPage } from "../pages/recovery/recovery.component"
 import { ResetPage } from "../pages/reset/reset.component"
 import { ProfilePage } from "../pages/profile/profile.component"
 import { NotFoundPage } from "../pages/notfound/notfound.component"
-import { useDispatch } from "react-redux";
 import IngredientsPage from '../pages/ingregients/ingredients.component';
 import { LogoutPage } from '../pages/logout/logout.component';
 import Modal from '../modal/modal.component';
@@ -19,6 +18,7 @@ import { DROP_FULL_INGREDIENT_DATA } from '../../services/actions/fullIngredient
 import ProtectedRouteElement from '../protected-route/protected-route.component';
 import { FeedPage } from '../pages/feed/feed.component';
 import { OrderPanelPage } from '../pages/order-panel/order-panel.component';
+import { useDispatch } from '../../services/types';
 
 
 function App() 

@@ -18,14 +18,10 @@ export const FeedPage:FC = () =>
     useEffect(() => {
         if (!feedState.wsConnected)
             dispatch(feedInit());
-        return () => {
-            dispatch(feedClose());
-        }
+        // return () => {
+        //     dispatch(feedClose());
+        // }
     }, []);
-
-    const showOrder = (order:TOrderData) => {
-        
-    };
 
     const scrollHeight = Math.max(
         document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -43,7 +39,6 @@ export const FeedPage:FC = () =>
                             <Link
                                 to={{pathname: `/feed/${order._id}` }}
                                 state= {{ feed: location }}
-                                onClick={() => showOrder(order)}
                                 className={`${styles.link}`}>
                                     <OrderElement order={order} status={false}/>
                             </Link>
