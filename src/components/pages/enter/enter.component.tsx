@@ -7,22 +7,14 @@ import { authLoginAndGetResult } from '../../../services/actions/login';
 import { useFormState } from '../../../utils/use-form-state';
 import { useDispatch, useSelector } from '../../../services/types';
 
-interface IEnterPageFormEvent {
-    email: string,
-    password: string
-}
 
 export const EnterPage:FC = () => 
 {
-    console.log(`EnterPage`);
-    
     const dispatch = useDispatch();
 
     const data = useSelector(store=>store.loginReducer.data);
     const fromRoute = useSelector(store=>store.loginReducer.loginFromRoute);
-
-    console.log(`fromRoute=${fromRoute}`);
-
+    
     const { values, handleChange, setValues } = useFormState({
         email: '',
         password: '',

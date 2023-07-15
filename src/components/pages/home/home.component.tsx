@@ -11,7 +11,6 @@ export const HomePage:FC = () =>
     const dispatch = useDispatch();
 
     useEffect(() => {  
-      console.log('getIngredients()');
       dispatch({type: LOGIN_FROM_ROUTE, fromRoute:'/'});
       dispatch(getIngredients());
     }, [dispatch]);

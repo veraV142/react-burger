@@ -68,6 +68,22 @@ export type TUser =
    isError?:boolean
 }
 
+export type TOrderData = {
+   createdAt: string;
+	ingredients: Array<string>;
+	name: string;
+	number: number;
+	status: string;
+	updatedAt: string;
+	_id: string;
+}
+
+export type TOrderResponse = {
+	success: boolean;
+	total: number;
+	totalToday: number;
+	orders: Array<TOrderData>;
+}
 
 export const dataUrl = 'https://norma.nomoreparties.space/api';
 

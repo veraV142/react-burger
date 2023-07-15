@@ -1,10 +1,26 @@
-import React, {FC} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import styles from "./ingredient-details.styles.module.css";
-import { useSelector } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/types';
+import { useParams } from 'react-router-dom';
+import { TIngredient } from '../../utils/data';
+import { getIngredients } from '../../services/actions/ingredientsLoad';
 
 const IngredientDetails: FC = () => {
 
-    const ingredient = useSelector(store => store.fullIngredientDataReducer.ingredient);
+    const dispatch = useDispatch();
+    var prms = useParams();
+    const [ingredient, setIngredient] = useState<TIngredient>();
+    const ingredients = useSelector(store => store.ingredientsLoadReducer.data);
+
+    useEffect(() => {
+      if (ingredients.length === 0)
+          dispatch(getIngredients());
+      else 
+      {
+          const ing = ingredients.find((item) => item._id === prms.id);
+          setIngredient(ing);
+      }
+  }, [prms, ingredients])
 
     return (
       <div className={styles.in_det_panel}>
