@@ -1,7 +1,7 @@
 import {
-    LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN_CLEAR, LOGIN_FROM_ROUTE, TAuthLoginAndGetResultAction 
+    LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN_CLEAR, LOGIN_FROM_ROUTE, LOGIN_DEFAULT 
   } from '../actions/login';
-  import reducer from './login/loginReducer'
+  import {loginReducer as reducer} from './login'
 
   describe('loginReducer reducer', ()=> {
     const initialState = {
@@ -21,7 +21,7 @@ import {
     const refreshToken = 'test refreshToken'
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type:LOGIN_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle LOGIN', () => {

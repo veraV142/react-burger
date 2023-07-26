@@ -1,5 +1,5 @@
-import reducer from './feed/feed'
-import { FEED_CLOSE, FEED_ERROR, FEED_INIT, FEED_MESSAGE, TFeedActions } from "../actions/feed";
+import  {feedReducer as reducer} from './feed'
+import { FEED_CLOSE, FEED_ERROR, FEED_INIT, FEED_MESSAGE, FEED_DEFAULT } from "../actions/feed";
 
 describe('feed reducer', () => {
     const initialState = {
@@ -10,7 +10,7 @@ describe('feed reducer', () => {
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, { type:FEED_DEFAULT })).toEqual([initialState])
       })
 
     it('should handle FEED_INIT', () => {
@@ -62,9 +62,12 @@ describe('feed reducer', () => {
         expect(
             reducer(initialState, {
                 type: FEED_MESSAGE,
-                orders: testOrders,
-                total: 1,
-                totalToday: 2
+                data: {
+                  success:true,
+                  orders: testOrders,
+                  total: 1,
+                  totalToday: 2
+                }
             }))
         .toEqual({
             ...initialState,

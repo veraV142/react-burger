@@ -1,7 +1,7 @@
 import {
-    LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL, LOGOUT_CLEAR, IAuthLogoutAndGetResultAction
+    LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL, LOGOUT_CLEAR, LOGOUT_DEFAULT
   } from '../actions/logout';
-  import reducer from './logout/logoutReducer'
+  import {logoutReducer as reducer} from './logout'
 
 
   describe('logoutReducer reducer', ()=> {
@@ -12,7 +12,7 @@ import {
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type:LOGOUT_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle LOGIN', () => {

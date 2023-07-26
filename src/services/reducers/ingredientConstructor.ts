@@ -32,7 +32,7 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGRE
             return  {
                 ...state,
                 selectedBun: action.uuid === undefined ? undefined : state.selectedBun, 
-                selectedIngredients: action.uuid !== null ? 
+                selectedIngredients: action.uuid !== undefined ? 
                     state.selectedIngredients.filter(si => (si as TIngredientExt).uuid !== action.uuid ) : 
                     [...state.selectedIngredients]
             };

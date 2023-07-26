@@ -1,7 +1,7 @@
 import {
-    REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, IRegisterAction
+    REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_DEFAULT
   } from '../actions/register';
-  import reducer from './register/registerReducer'
+  import {registerReducer as reducer} from './register'
 
   describe('registerReducer reducer', ()=> {
     const initialState = {
@@ -11,7 +11,7 @@ import {
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type:REGISTER_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle REGISTER', () => {

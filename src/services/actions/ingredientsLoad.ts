@@ -5,6 +5,11 @@ import { AppDispatch, AppThunk } from '../types';
 export const GET_INGREDIENTS = 'GET_INGREDIENTS'
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS'
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED'
+export const GET_INGREDIENTS_DEFAULT = 'GET_INGREDIENTS_DEFAULT'
+
+export interface IGetIngredientsDefault {
+	type: typeof GET_INGREDIENTS_DEFAULT;
+}
 
 export interface IGetIngredients {
 	type: typeof GET_INGREDIENTS;
@@ -19,7 +24,7 @@ export interface IGetIngredientsFailed {
 	type: typeof GET_INGREDIENTS_FAILED;
 }
 
-export type TGetIngredientsAction = | IGetIngredients | IGetIngredientsSuccess | IGetIngredientsFailed
+export type TGetIngredientsAction = | IGetIngredients | IGetIngredientsSuccess | IGetIngredientsFailed | IGetIngredientsDefault
 
 export const getIngredients: AppThunk = () => {
     return function(dispatch: AppDispatch) {

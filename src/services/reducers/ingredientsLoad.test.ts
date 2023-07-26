@@ -1,7 +1,8 @@
+import { TIngredient } from '../../utils/data';
 import {
-    GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED, TGetIngredientsAction
+    GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_DEFAULT
   } from '../actions/ingredientsLoad';
-  import reducer from './ingredientsLoad/ingredientsLoadReducer'
+  import {ingredientsLoadReducer as reducer} from './ingredientsLoad'
 
   describe('ingredientsLoadReducer reducer', ()=> {
     const initialState = {
@@ -13,10 +14,10 @@ import {
         mainList: [],
     }
 
-    const buhIngredient = {
+    const buhIngredient:TIngredient = {
         _id: '072c317e-e5e3-4167-b150-030551efd56a',
         name: 'Булка',
-        type: 'buh',
+        type: 'bun',
         proteins: 111,
         fat: 12,
         carbohydrates: 1121,
@@ -25,10 +26,10 @@ import {
         image: 'test img',
         image_mobile: 'test img mob',
         image_large: 'test img large',
-        __v: '1',
+        __v: 1,
     }
 
-    const sauceIngredient = {
+    const sauceIngredient:TIngredient  = {
         _id: '072c317e-e5e3-4167-b150-030551efd561',
         name: 'Соус',
         type: 'sauce',
@@ -40,10 +41,10 @@ import {
         image: 'test img',
         image_mobile: 'test img mob',
         image_large: 'test img large',
-        __v: '1',
+        __v: 1,
     }
 
-    const mainIngredient = {
+    const mainIngredient:TIngredient  = {
         _id: '072c317e-e5e3-4167-b150-030551efd562',
         name: 'Начинка',
         type: 'main',
@@ -55,11 +56,11 @@ import {
         image: 'test img',
         image_mobile: 'test img mob',
         image_large: 'test img large',
-        __v: '1',
+        __v: 1,
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type:GET_INGREDIENTS_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle GET_INGREDIENTS', () => {

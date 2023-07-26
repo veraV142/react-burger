@@ -1,6 +1,6 @@
-import reducer from './fullIngredientData/fullIngredientDataReducer'
+import {fullIngredientDataReducer as reducer} from './fullIngredientData'
 import {
-    ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA, IFullIngredientDataAction
+    ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA, FULL_INGREDIENT_DATA_DEFAULT
 } from '../actions/fullIngredientData';
 
 describe('fullIngredientData reducer', ()=> {
@@ -20,11 +20,11 @@ describe('fullIngredientData reducer', ()=> {
         image: 'test img',
         image_mobile: 'test img mob',
         image_large: 'test img large',
-        __v: '1',
+        __v: 1,
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type: FULL_INGREDIENT_DATA_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle ADD_FULL_INGREDIENT_DATA', () => {

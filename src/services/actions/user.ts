@@ -5,12 +5,16 @@ import { AppThunk } from '../types';
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED'
 export const TOKEN_INVALID = 'TOKEN_INVALID'
 export const GET_USER = 'GET_USER'
+export const GET_USER_DEFAULT = 'GET_USER_DEFAULT'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 export const GET_USER_FAIL = 'GET_USER_FAIL'
 export const SAVE_USER = 'SAVE_USER'
 export const SAVE_USER_SUCCESS = 'SAVE_USER_SUCCESS'
 export const SAVE_USER_FAIL = 'SAVE_USER_FAIL'
 
+export interface IGetUserDefault {
+	type: typeof GET_USER_DEFAULT;
+}
 export interface ITokenExpired {
 	type: typeof TOKEN_EXPIRED;
 }
@@ -40,7 +44,7 @@ export interface ISaveUserFail {
 	type: typeof SAVE_USER_FAIL;
 }
 
-export type TAuthGetUserAndGetResultAction = |ITokenExpired|ITokenInvalid|IGetUser|IGetUserSuccess|IGetUserFail|ISaveUser|ISaveUserSuccess|ISaveUserFail
+export type TAuthGetUserAndGetResultAction = |ITokenExpired|ITokenInvalid|IGetUser|IGetUserSuccess|IGetUserFail|ISaveUser|ISaveUserSuccess|ISaveUserFail|IGetUserDefault
 
 export const authGetUserAndGetResult: AppThunk = (token:string) => {
     return function(dispatch) {

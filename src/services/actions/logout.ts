@@ -6,7 +6,11 @@ export const LOGOUT = 'LOGOUT'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAIL = 'LOGOUT_FAIL'
 export const LOGOUT_CLEAR = 'LOGOUT_CLEAR'
+export const LOGOUT_DEFAULT = 'LOGOUT_DEFAULT'
 
+export interface ILogoutDefault {
+	type: typeof LOGOUT_DEFAULT;
+}
 export interface ILogout {
 	type: typeof LOGOUT;
 }
@@ -20,7 +24,7 @@ export interface ILogoutClear {
 	type: typeof LOGOUT_CLEAR;
 }
 
-export type IAuthLogoutAndGetResultAction = |ILogout|ILogoutSuccess|ILogoutFail|ILogoutClear
+export type IAuthLogoutAndGetResultAction = |ILogout|ILogoutSuccess|ILogoutFail|ILogoutClear|ILogoutDefault
 
 export const authLogoutAndGetResult:AppThunk = (token:string) => {
     return function(dispatch) {

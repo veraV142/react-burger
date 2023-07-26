@@ -1,8 +1,8 @@
 import {
-    GET_ORDER_NUM, GET_ORDER_NUM_SUCCESS, GET_ORDER_NUM_FAIL, DROP_ORDER_NUM, IOrderAction
+    GET_ORDER_NUM, GET_ORDER_NUM_SUCCESS, GET_ORDER_NUM_FAIL, DROP_ORDER_NUM, GET_ORDER_NUM_DEFAULT
   } from '../actions/order';
 
-  import reducer from './order/orderNumReducer'
+  import {orderNumReducer as reducer} from './order'
 
   describe('orderNumReducer reducer', ()=> {
     const initialState = {
@@ -12,7 +12,7 @@ import {
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type:GET_ORDER_NUM_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle GET_ORDER_NUM', () => {

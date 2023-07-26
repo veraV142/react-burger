@@ -1,8 +1,8 @@
 import {
     GET_USER, GET_USER_SUCCESS, GET_USER_FAIL, TOKEN_EXPIRED, 
-    SAVE_USER, SAVE_USER_SUCCESS, SAVE_USER_FAIL, TOKEN_INVALID, TAuthGetUserAndGetResultAction
+    SAVE_USER, SAVE_USER_SUCCESS, SAVE_USER_FAIL, TOKEN_INVALID, GET_USER_DEFAULT
   } from '../actions/user';
-  import reducer from './user/userReducer'
+  import {userReducer as reducer} from './user'
 
   describe('userReducer reducer', ()=> {
     const initialState = {
@@ -17,7 +17,7 @@ import {
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type:GET_USER_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle GET_USER', () => {
@@ -58,7 +58,7 @@ import {
             }))
         .toEqual({
             ...initialState,
-            etUserRequest: false, 
+            getUserRequest: false, 
             getUserFail: true,
             data: { isError:true, name:'не определено', email:'не определено'  }
         })

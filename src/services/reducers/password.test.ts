@@ -1,8 +1,8 @@
 import {
     PASSWORD_RESET, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL,
-    PASSWORD_NEW, PASSWORD_NEW_SUCCESS, PASSWORD_NEW_FAIL, IPasswordAction, 
+    PASSWORD_NEW, PASSWORD_NEW_SUCCESS, PASSWORD_NEW_FAIL, PASSWORD_DEFAULT, 
   } from '../actions/password';
-  import reducer from './password/passwordReducer'
+  import {passwordReducer as reducer} from './password'
 
   describe('passwordReducer reducer', ()=> {
     const initialState = {
@@ -16,7 +16,7 @@ import {
     }
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual([initialState])
+        expect(reducer(undefined, {type:PASSWORD_DEFAULT})).toEqual(initialState)
     })
 
     it('should handle PASSWORD_NEW', () => {

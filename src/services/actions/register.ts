@@ -5,7 +5,11 @@ import { AppThunk } from '../types';
 export const REGISTER = 'REGISTER'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAIL = 'REGISTER_FAIL'
+export const REGISTER_DEFAULT = 'REGISTER_DEFAULT'
 
+export interface IRegisterDefault {
+	type: typeof REGISTER_DEFAULT;
+}
 export interface IRegister {
 	type: typeof REGISTER;
 }
@@ -19,7 +23,7 @@ export interface IRegisterSuccess {
 export interface IRegisterFail {
 	type: typeof REGISTER_FAIL;
 }
-export type IRegisterAction = |IRegister|IRegisterSuccess|IRegisterFail
+export type IRegisterAction = |IRegister|IRegisterSuccess|IRegisterFail|IRegisterDefault
 
 export const authRegisterAndGetResult:AppThunk = (email:string, password:string, name:string) => {
     return function(dispatch) {

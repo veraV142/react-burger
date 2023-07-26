@@ -6,7 +6,11 @@ export const FEED_CLOSE = "FEED_CLOSE";
 export const FEED_ERROR = "FEED_ERROR";
 export const FEED_MESSAGE = "FEED_MESSAGE";
 export const FEED_SEND = "FEED_SEND";
+export const FEED_DEFAULT = "FEED_DEFAULT";
 
+interface IFeedDefault {
+    readonly type: typeof FEED_DEFAULT;
+}
 interface IFeedInit {
     readonly type: typeof FEED_INIT;
 }
@@ -60,4 +64,5 @@ export type TFeedActions =
   | IFeedClose
   | IFeedError
   | IFeedMessage
-  | IFeedSend;
+  | IFeedSend
+  | IFeedDefault;

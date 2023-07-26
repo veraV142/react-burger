@@ -1,7 +1,7 @@
 import {
-      TAB_CHANGE
+      TAB_CHANGE, TAB_CHANGE_DEFAULT
     } from '../actions/tabChange';
-    import reducer from './tabChange/tabChangeReducer'
+    import {tabChangeReducer as reducer} from './tabChange'
 
     describe('registerReducer reducer', ()=> {
         const initialState = {
@@ -9,7 +9,7 @@ import {
         }
     
         it('should return the initial state', () => {
-            expect(reducer(undefined, {})).toEqual([initialState])
+            expect(reducer(undefined, {type:TAB_CHANGE_DEFAULT})).toEqual(initialState)
         })
     
         it('should handle TAB_CHANGE', () => {

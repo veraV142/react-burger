@@ -29,7 +29,7 @@ const Modal = (props:IModal) => {
     return ReactDOM.createPortal(
         <div className={styles.panel}>
             <div className={` ${showed ? `${styles.on_content}` : `${styles.off_content}`}`}>
-                <button className={styles.close_btn} onClick={() => onClose()}>
+                <button className={styles.close_btn} onClick={() => onClose()} data-cy={`close-modal-button`}>
                     <CloseIcon type="primary" />
                 </button>
                 <h3 className={`mt-10 ml-10 mr-10 text text_type_main-large ${styles.header}`}>{header}</h3>

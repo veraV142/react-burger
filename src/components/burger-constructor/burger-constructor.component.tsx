@@ -42,7 +42,7 @@ export const BurgerConstructor: FC = () =>
         ) - 550;
 
     return (
-        <div className={`mt-25 ${styles.panel}`} ref={dropTarget}> 
+        <div className={`mt-25 ${styles.panel}`} ref={dropTarget} data-cy={'constructor'}> 
 
             <div className={`mt-2 mb-4 mr-4 ml-7 pr-4`}>
                 {selectedBun &&

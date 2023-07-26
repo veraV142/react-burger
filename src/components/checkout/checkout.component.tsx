@@ -64,7 +64,7 @@ export const Checkout: FC  = () =>
             <div className={`mr-10 mt-4`}>
                 <CurrencyIcon type="primary" />
             </div>
-            <Button htmlType="button" type="primary" size="medium" onClick={onSendOrderAndGetResult}>
+            <Button htmlType="button" type="primary" size="medium" onClick={onSendOrderAndGetResult} data-cy={`order-submit`}>
                 Оформление заказа
             </Button>
             {

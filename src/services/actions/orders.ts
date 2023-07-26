@@ -6,7 +6,11 @@ export const ORDERS_CLOSE = "ORDERS_CLOSE";
 export const ORDERS_ERROR = "ORDERS_ERROR";
 export const ORDERS_MESSAGE = "ORDERS_MESSAGE";
 export const ORDERS_SEND = "ORDERS_SEND";
+export const ORDERS_DEFAULT = "ORDERS_DEFAULT";
 
+interface IOrdersDefault {
+    readonly type: typeof ORDERS_DEFAULT;
+}
 interface IOrdersInit {
     readonly type: typeof ORDERS_INIT;
 }
@@ -59,4 +63,5 @@ export type TOrdersActions =
   | IOrdersClose
   | IOrdersError
   | IOrdersMessage
-  | IOrdersSend;
+  | IOrdersSend
+  | IOrdersDefault;
