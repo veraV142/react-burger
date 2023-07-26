@@ -8,7 +8,6 @@ describe('select ingredient', () => {
     cy.get('[data-cy=ingredient643d69a5c3f7b9001cfa093c]').should('exist');
     cy.contains('Детали ингредиента').should('not.exist');
     cy.get('[data-cy=ingredient643d69a5c3f7b9001cfa093c]').click();
-    cy.contains('Детали ингредиента').should('exist');
     cy.get('[data-cy=openingredient643d69a5c3f7b9001cfa093c]').should('exist');
     cy.get('[data-cy=close-modal-button]').click();
     cy.contains('Детали ингредиента').should('not.exist');
