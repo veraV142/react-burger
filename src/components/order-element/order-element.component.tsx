@@ -41,10 +41,10 @@ export const OrderElement :FC<TOrderElement> = ({ order, status }) =>
           return (sum += item ? item.price : 0);
         }, 0);
 
-    useEffect(() => {
-        if (ingredients.length === 0)
-            dispatch(getIngredients());
-    }, []);
+    // useEffect(() => {
+    //     if (ingredients.length === 0)
+    //         dispatch(getIngredients());
+    // }, []);
 
     return (
         <div className={`${styles.block} mt-8`}>

@@ -1,16 +1,10 @@
 import {
     LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL, LOGOUT_CLEAR, LOGOUT_DEFAULT
   } from '../actions/logout';
-  import {logoutReducer as reducer} from './logout'
+  import {logoutReducer as reducer, initialState} from './logout'
 
 
   describe('logoutReducer reducer', ()=> {
-    const initialState = {
-        logoutRequest: false,
-        logoutFail: false, 
-        logoutSuccess: false 
-    }
-
     it('should return the initial state', () => {
         expect(reducer(undefined, {type:LOGOUT_DEFAULT})).toEqual(initialState)
     })

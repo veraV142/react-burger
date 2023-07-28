@@ -8,13 +8,13 @@ export interface IOrderNumInitialState {
   orderNumFail: boolean
 }
 
-export const orderNumInitialState :IOrderNumInitialState = {
+export const initialState :IOrderNumInitialState = {
   orderNum: undefined, 
   orderNumRequest: false,
   orderNumFail: false
 };
 
-export const orderNumReducer = (state = orderNumInitialState, action: IOrderAction):IOrderNumInitialState => 
+export const orderNumReducer = (state = initialState, action: IOrderAction):IOrderNumInitialState => 
 {
     switch (action.type) {
         case GET_ORDER_NUM: {

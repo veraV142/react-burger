@@ -2,20 +2,9 @@ import {
     GET_USER, GET_USER_SUCCESS, GET_USER_FAIL, TOKEN_EXPIRED, 
     SAVE_USER, SAVE_USER_SUCCESS, SAVE_USER_FAIL, TOKEN_INVALID, GET_USER_DEFAULT
   } from '../actions/user';
-  import {userReducer as reducer} from './user'
+  import {userReducer as reducer, initialState} from './user'
 
   describe('userReducer reducer', ()=> {
-    const initialState = {
-        getUserRequest: false,
-        getUserFail: false, 
-        data: undefined,
-        tokenExpired: false,
-        tokenInvalid: false,
-        saveUserRequest: false,
-        saveUserFail: false,  
-        saveUserSuccess: false,
-    }
-
     it('should return the initial state', () => {
         expect(reducer(undefined, {type:GET_USER_DEFAULT})).toEqual(initialState)
     })

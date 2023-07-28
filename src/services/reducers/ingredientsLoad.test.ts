@@ -2,17 +2,9 @@ import { TIngredient } from '../../utils/data';
 import {
     GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_DEFAULT
   } from '../actions/ingredientsLoad';
-  import {ingredientsLoadReducer as reducer} from './ingredientsLoad'
+  import {ingredientsLoadReducer as reducer, initialState} from './ingredientsLoad'
 
   describe('ingredientsLoadReducer reducer', ()=> {
-    const initialState = {
-        data: [],
-        dataRequest: false,
-        dataFail: false,
-        bunList: [],
-        sauceList: [],
-        mainList: [],
-    }
 
     const buhIngredient:TIngredient = {
         _id: '072c317e-e5e3-4167-b150-030551efd56a',

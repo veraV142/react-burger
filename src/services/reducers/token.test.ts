@@ -1,14 +1,9 @@
 import {
     TOKEN, TOKEN_SUCCESS, TOKEN_FAIL, TOKEN_DEFAULT
   } from '../actions/token';
-  import {tokenReducer as reducer} from './token'
+  import {tokenReducer as reducer, initialState} from './token'
 
   describe('tokenReducer reducer', ()=> {
-    const initialState = {
-        tokenRequest: false,
-        tokenFail: false, 
-        data: undefined 
-    }
 
     it('should return the initial state', () => {
         expect(reducer(undefined, {type:TOKEN_DEFAULT})).toEqual(initialState)

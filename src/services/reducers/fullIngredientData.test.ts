@@ -1,12 +1,9 @@
-import {fullIngredientDataReducer as reducer} from './fullIngredientData'
+import {fullIngredientDataReducer as reducer, initialState} from './fullIngredientData'
 import {
     ADD_FULL_INGREDIENT_DATA, DROP_FULL_INGREDIENT_DATA, FULL_INGREDIENT_DATA_DEFAULT
 } from '../actions/fullIngredientData';
 
 describe('fullIngredientData reducer', ()=> {
-    const initialState = {
-        ingredient: undefined
-    }
 
     const testIngredient = {
         _id: '072c317e-e5e3-4167-b150-030551efd56a',

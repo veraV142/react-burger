@@ -1,15 +1,8 @@
 import { TOrderData } from "../../utils/data";
 import { ORDERS_CLOSE, ORDERS_ERROR, ORDERS_INIT, ORDERS_MESSAGE, ORDERS_DEFAULT } from "../actions/orders";
-import {ordersReducer as reducer} from './orders'
+import {ordersReducer as reducer, initialState} from './orders'
 
 describe('ordersReducer reducer', ()=> {
-    const initialState = {
-        wsConnected: false,
-        orders: [],
-        total: 0,
-        totalToday: 0,
-    }
-
     const order : TOrderData = {
         createdAt: '25.07.2023',
         ingredients: ['b26e9473-b751-47b8-bda6-15ebafba0ea0', '89d997fd-9c9c-455a-ae01-120889ae6c6b'],

@@ -7,11 +7,11 @@ export type TFullIngredientDataInitialState = {
     ingredient?: TIngredient
 }
 
-const fullIngredientDataInitialState: TFullIngredientDataInitialState = {
+export const initialState: TFullIngredientDataInitialState = {
     ingredient: undefined
 };
 
-export const fullIngredientDataReducer = (state = fullIngredientDataInitialState, action: IFullIngredientDataAction):TFullIngredientDataInitialState => 
+export const fullIngredientDataReducer = (state = initialState, action: IFullIngredientDataAction):TFullIngredientDataInitialState => 
 {
     switch (action.type) {
         case ADD_FULL_INGREDIENT_DATA: {

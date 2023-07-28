@@ -13,13 +13,13 @@ const IngredientDetails: FC = () => {
     const ingredients = useSelector(store => store.ingredientsLoadReducer.data);
 
     useEffect(() => {
-      if (ingredients.length === 0)
-          dispatch(getIngredients());
-      else 
-      {
+      // if (ingredients.length === 0)
+      //     dispatch(getIngredients());
+      // else 
+      // {
           const ing = ingredients.find((item) => item._id === prms.id);
           setIngredient(ing);
-      }
+      //}
   }, [prms, ingredients])
 
     return (

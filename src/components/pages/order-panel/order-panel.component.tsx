@@ -69,9 +69,10 @@ export const OrderPanelPage:FC = () => {
         if (!feedState.wsConnected && path === feedPath )
             dispatch(feedInit());
 
-        if (ingredients.length === 0)
-            dispatch(getIngredients());
-        else if (!order) {
+        // if (ingredients.length === 0)
+        //     dispatch(getIngredients());
+        // else 
+        if (!order) {
           if (path === orderPath && !ordersState.wsConnected) {
             dispatch(ordersInit());
           }

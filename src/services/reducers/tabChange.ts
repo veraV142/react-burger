@@ -7,11 +7,11 @@ import {
     tab: string;
   }
 
-  export const tabChangeInitialState = {
+  export const initialState = {
     tab: 'bun'
   };
 
-  export const tabChangeReducer = (state = tabChangeInitialState, action:ITabChangeAction) :ITabChangeInitialState  => 
+  export const tabChangeReducer = (state = initialState, action:ITabChangeAction) :ITabChangeInitialState  => 
   {
       switch (action.type) {
           case TAB_CHANGE: {

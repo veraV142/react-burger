@@ -18,9 +18,9 @@ export const FeedPage:FC = () =>
     useEffect(() => {
         if (!feedState.wsConnected)
             dispatch(feedInit());
-        // return () => {
-        //     dispatch(feedClose());
-        // }
+        return () => {
+            dispatch(feedClose());
+        }
     }, []);
 
     const scrollHeight = Math.max(

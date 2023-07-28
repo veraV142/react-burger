@@ -1,13 +1,9 @@
 import {
       TAB_CHANGE, TAB_CHANGE_DEFAULT
     } from '../actions/tabChange';
-    import {tabChangeReducer as reducer} from './tabChange'
+    import {tabChangeReducer as reducer, initialState} from './tabChange'
 
-    describe('registerReducer reducer', ()=> {
-        const initialState = {
-            tab: 'bun'
-        }
-    
+    describe('registerReducer reducer', ()=> {    
         it('should return the initial state', () => {
             expect(reducer(undefined, {type:TAB_CHANGE_DEFAULT})).toEqual(initialState)
         })

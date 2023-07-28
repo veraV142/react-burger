@@ -1,13 +1,7 @@
-import  {feedReducer as reducer} from './feed'
+import  {feedReducer as reducer, initialState} from './feed'
 import { FEED_CLOSE, FEED_ERROR, FEED_INIT, FEED_MESSAGE, FEED_DEFAULT } from "../actions/feed";
 
 describe('feed reducer', () => {
-    const initialState = {
-        wsConnected: false,
-        orders: [],
-        total: 0,
-        totalToday: 0,
-    }
 
     it('should return the initial state', () => {
         expect(reducer(undefined, { type:FEED_DEFAULT })).toEqual([initialState])

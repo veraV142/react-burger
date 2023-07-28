@@ -16,6 +16,9 @@ export const OrdersPage:FC = () =>
     useEffect(() => {
         if (!ordersState.wsConnected)
             dispatch(ordersInit());
+        return () => {
+            dispatch(ordersClose());
+        }
     }, []);
 
     const scrollHeight = Math.max(

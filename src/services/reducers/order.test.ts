@@ -2,15 +2,9 @@ import {
     GET_ORDER_NUM, GET_ORDER_NUM_SUCCESS, GET_ORDER_NUM_FAIL, DROP_ORDER_NUM, GET_ORDER_NUM_DEFAULT
   } from '../actions/order';
 
-  import {orderNumReducer as reducer} from './order'
+  import {orderNumReducer as reducer, initialState} from './order'
 
   describe('orderNumReducer reducer', ()=> {
-    const initialState = {
-        orderNum: undefined, 
-        orderNumRequest: false,
-        orderNumFail: false 
-    }
-
     it('should return the initial state', () => {
         expect(reducer(undefined, {type:GET_ORDER_NUM_DEFAULT})).toEqual(initialState)
     })

@@ -12,7 +12,7 @@ export const HomePage:FC = () =>
 
     useEffect(() => {  
       dispatch({type: LOGIN_FROM_ROUTE, fromRoute:'/'});
-      dispatch(getIngredients());
+      //dispatch(getIngredients());
     }, [dispatch]);
 
     return (

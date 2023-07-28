@@ -28,9 +28,10 @@ export const Checkout: FC  = () =>
     const onSendOrderAndGetResult = () => 
     {
         const refreshToken = getCookie('refreshToken');
-        if (refreshToken === null || refreshToken === '') {
+        if (refreshToken === null || refreshToken === '' || refreshToken === undefined) {
             dispatch({ type: LOGOUT_CLEAR });
             navigate('/logout');
+            return;
         }
         const ingredients: Array<TIngredient> = [];
         if (buhData !== undefined) {
@@ -69,7 +70,7 @@ export const Checkout: FC  = () =>
             </Button>
             {
                 orderNum != null && (
-                    <Modal header={'Детали ингредиента'} showed={orderNum != null} onClose={closeOrder}>
+                    <Modal header={''} showed={orderNum != null} onClose={closeOrder}>
                         <OrderDetails/>
                     </Modal>
                 )

@@ -1,16 +1,9 @@
 import {
     LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN_CLEAR, LOGIN_FROM_ROUTE, LOGIN_DEFAULT 
   } from '../actions/login';
-  import {loginReducer as reducer} from './login'
+  import {loginReducer as reducer, initialState} from './login'
 
   describe('loginReducer reducer', ()=> {
-    const initialState = {
-        loginRequest: false,
-        loginFail: false, 
-        data: undefined, 
-        loginSuccess: false, 
-        loginFromRoute: '/'
-    }
 
     const user = {
         email: 'test',

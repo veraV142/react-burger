@@ -1,12 +1,7 @@
-import {ingredientConstructorReducer as reducer} from './ingredientConstructor'
+import {ingredientConstructorReducer as reducer, initialState} from './ingredientConstructor'
 import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGREDIENTS, INGREDIENTS_DEFAULT } from '../actions/ingredientConstructor';
 
 describe('ingredientConstructorReducer reducer', ()=> {
-    const initialState = {
-        selectedIngredients: [], 
-        selectedBun: undefined,
-        sum: 0
-    }
 
     const buhIngredient = {
         _id: '072c317e-e5e3-4167-b150-030551efd56a',
