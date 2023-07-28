@@ -8,13 +8,13 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGRE
     dragIngredientIndex?: string
   }
 
-  const ingredientConstructorInitialState: TIngredientsState = {
+  export const initialState: TIngredientsState = {
     selectedIngredients: [], 
     selectedBun: undefined,
     sum: 0
   };
 
-  export const ingredientConstructorReducer = (state = ingredientConstructorInitialState, action:IIngredientConstructorAction) : TIngredientsState => 
+  export const ingredientConstructorReducer = (state = initialState, action:IIngredientConstructorAction) : TIngredientsState => 
   {
       switch (action.type) {
           case ADD_INGREDIENT: {
@@ -32,7 +32,7 @@ import { ADD_INGREDIENT, DROP_INGREDIENT, CALC_SUM, MOVE_INGREDIENT, CLEAR_INGRE
             return  {
                 ...state,
                 selectedBun: action.uuid === undefined ? undefined : state.selectedBun, 
-                selectedIngredients: action.uuid !== null ? 
+                selectedIngredients: action.uuid !== undefined ? 
                     state.selectedIngredients.filter(si => (si as TIngredientExt).uuid !== action.uuid ) : 
                     [...state.selectedIngredients]
             };

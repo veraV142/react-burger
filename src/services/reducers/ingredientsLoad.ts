@@ -12,7 +12,7 @@ import {
     mainList: Array<TIngredient>,
   }
 
-  export const ingredientsLoadInitialState: TIngredientsLoadState = {
+  export const initialState: TIngredientsLoadState = {
     data: [],
     dataRequest: false,
     dataFail: false,
@@ -21,7 +21,7 @@ import {
     mainList: [],
   };
 
-  export const ingredientsLoadReducer = (state = ingredientsLoadInitialState, action: TGetIngredientsAction) => 
+  export const ingredientsLoadReducer = (state = initialState, action: TGetIngredientsAction) => 
   {
       switch (action.type) {
           case GET_INGREDIENTS: {

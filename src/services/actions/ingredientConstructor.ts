@@ -5,6 +5,11 @@ export const DROP_INGREDIENT = 'DROP_INGREDIENT'
 export const CALC_SUM = 'CALC_SUM'
 export const MOVE_INGREDIENT = 'MOVE_INGREDIENT'
 export const CLEAR_INGREDIENTS = 'CLEAR_INGREDIENTS'
+export const INGREDIENTS_DEFAULT = 'INGREDIENTS_DEFAULT'
+
+export interface IIngredientDefault {
+	type: typeof INGREDIENTS_DEFAULT;
+}
 
 export interface IAddIngredient {
 	type: typeof ADD_INGREDIENT;
@@ -22,7 +27,7 @@ export interface IClearIngredients {
 
 export interface ICalcSum {
 	type: typeof CALC_SUM;
-  selectedBun: TIngredient
+  selectedBun?: TIngredient
 }
 
 export interface IMoveIngredients {
@@ -31,4 +36,4 @@ export interface IMoveIngredients {
   toItemIndex: string
 }
 
-export type IIngredientConstructorAction = | IAddIngredient | IDropIngredient | IClearIngredients | ICalcSum | IMoveIngredients;
+export type IIngredientConstructorAction = | IAddIngredient | IDropIngredient | IClearIngredients | ICalcSum | IMoveIngredients | IIngredientDefault;

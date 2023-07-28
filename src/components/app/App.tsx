@@ -19,6 +19,8 @@ import ProtectedRouteElement from '../protected-route/protected-route.component'
 import { FeedPage } from '../pages/feed/feed.component';
 import { OrderPanelPage } from '../pages/order-panel/order-panel.component';
 import { useDispatch } from '../../services/types';
+import { useEffect } from 'react';
+import { getIngredients } from '../../services/actions/ingredientsLoad';
 
 
 function App() 
@@ -43,6 +45,10 @@ function App()
   const onCloseFeed = () => {
     navigate(`/feed`);
   };
+
+  useEffect(() => {
+    dispatch(getIngredients());
+}, [])
 
   return (
     <div className="App">

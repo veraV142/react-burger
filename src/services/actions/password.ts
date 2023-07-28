@@ -8,7 +8,11 @@ export const PASSWORD_RESET_FAIL = 'PASSWORD_RESET_FAIL'
 export const PASSWORD_NEW = 'PASSWORD_NEW'
 export const PASSWORD_NEW_SUCCESS = 'PASSWORD_NEW_SUCCESS'
 export const PASSWORD_NEW_FAIL = 'PASSWORD_NEW_FAIL'
+export const PASSWORD_DEFAULT = 'PASSWORD_DEFAULT'
 
+export interface IPasswordDefault {
+	type: typeof PASSWORD_DEFAULT;
+}
 export interface IPasswordReset {
 	type: typeof PASSWORD_RESET;
 }
@@ -28,7 +32,7 @@ export interface IPasswordNewFail {
 	type: typeof PASSWORD_NEW_FAIL;
 }
 
-export type IPasswordAction = |IPasswordReset|IPasswordResetSuccess|IPasswordResetFail|IPasswordNew|IPasswordNewSuccess|IPasswordNewFail
+export type IPasswordAction = |IPasswordReset|IPasswordResetSuccess|IPasswordResetFail|IPasswordNew|IPasswordNewSuccess|IPasswordNewFail|IPasswordDefault
 
 export const passwordNewAndGetResult:AppThunk = (password:string, code:string) => {
     return function(dispatch) {

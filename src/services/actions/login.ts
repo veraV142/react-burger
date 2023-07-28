@@ -8,7 +8,11 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const LOGIN_CLEAR = 'LOGIN_CLEAR'
 export const LOGIN_FROM_ROUTE = 'LOGIN_FROM_ROUTE'
+export const LOGIN_DEFAULT = 'LOGIN_DEFAULT'
 
+export interface ILoginDefault {
+	type: typeof LOGIN_DEFAULT;
+}
 export interface ILogin {
 	type: typeof LOGIN;
 }
@@ -29,7 +33,7 @@ export interface ILoginLoginFromRoute {
   fromRoute:string;
 }
 
-export type TAuthLoginAndGetResultAction = | ILogin | ILoginSuccess | ILoginFail | ILoginClear | ILoginLoginFromRoute
+export type TAuthLoginAndGetResultAction = | ILogin | ILoginSuccess | ILoginFail | ILoginClear | ILoginLoginFromRoute | ILoginDefault
 
 export const authLoginAndGetResult:AppThunk = (email:string, password:string) => {
     return function(dispatch:AppDispatch) {

@@ -8,7 +8,7 @@ type TState = {
 	totalToday: number;
 }
 
-const initialState: TState = {
+export const initialState: TState = {
     wsConnected: false,
     orders: [],
     total: 0,

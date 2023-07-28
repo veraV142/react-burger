@@ -18,13 +18,13 @@ const IngredientsPage: FC = () =>
     var prms = useParams();
 
     useEffect(() => {
-        if (ingredients.length === 0)
-            dispatch(getIngredients());
-        else 
-        {
+        // if (ingredients.length === 0)
+        //     dispatch(getIngredients());
+        // else 
+        // {
             const ing = ingredients.find((item) => item._id === prms.id);
             setIngredient(ing);
-        }
+        //}
     }, [prms, ingredients])
     
     if (ingredient === null) 

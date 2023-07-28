@@ -13,17 +13,17 @@ const IngredientDetails: FC = () => {
     const ingredients = useSelector(store => store.ingredientsLoadReducer.data);
 
     useEffect(() => {
-      if (ingredients.length === 0)
-          dispatch(getIngredients());
-      else 
-      {
+      // if (ingredients.length === 0)
+      //     dispatch(getIngredients());
+      // else 
+      // {
           const ing = ingredients.find((item) => item._id === prms.id);
           setIngredient(ing);
-      }
+      //}
   }, [prms, ingredients])
 
     return (
-      <div className={styles.in_det_panel}>
+      <div className={styles.in_det_panel} data-cy={`openingredient643d69a5c3f7b9001cfa093c`}>
         <img src={ingredient?.image} alt={ingredient?.name} className={`mb-4 ${styles.img_sz}`} />
         <p className="text text_type_main-medium mb-8">{ingredient?.name}</p>
         <div className={`mb-15 ${styles.prms}`}>

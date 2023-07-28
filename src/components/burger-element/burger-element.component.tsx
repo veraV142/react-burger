@@ -32,7 +32,7 @@ const BurgerElement: FC<IBurgerElementProps> = (props) =>
     return ( 
         <>{
             !isDrag &&
-            <div className={`ml-4 mb-8 ${styles.constructor_el}`} ref={dragRef}   >
+            <div className={`ml-4 mb-8 ${styles.constructor_el}`} ref={dragRef} data-cy={`ingredient${props.data._id}`}>
             <Link
                 to={{pathname: `/ingredients/${props.data._id}` }}
                 state= {{ background: location }}

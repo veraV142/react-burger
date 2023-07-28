@@ -6,7 +6,11 @@ import { AppThunk } from '../types';
 export const TOKEN = 'TOKEN'
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS'
 export const TOKEN_FAIL = 'TOKEN_FAIL'
+export const TOKEN_DEFAULT = 'TOKEN_DEFAULT'
 
+export interface ITokenDefault {
+	type: typeof TOKEN_DEFAULT;
+}
 export interface IToken {
 	type: typeof TOKEN;
 }
@@ -19,7 +23,7 @@ export interface ITokenFail {
 	type: typeof TOKEN_FAIL;
 }
 
-export type ITokenAction = |IToken|ITokenSuccess|ITokenFail
+export type ITokenAction = |IToken|ITokenSuccess|ITokenFail|ITokenDefault
 
 export const authTokenAndGetResult:AppThunk = (token:string) => {
     return function(dispatch) {

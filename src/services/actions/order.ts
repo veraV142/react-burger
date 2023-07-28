@@ -7,7 +7,11 @@ export const GET_ORDER_NUM_SUCCESS = 'GET_ORDER_NUM_SUCCESS'
 export const GET_ORDER_NUM_FAIL = 'GET_ORDER_NUM_FAIL'
 export const DROP_ORDER_NUM = 'DROP_ORDER_NUM'
 export const CLEAR_INGREDIENTS = 'CLEAR_INGREDIENTS'
+export const GET_ORDER_NUM_DEFAULT = 'GET_ORDER_NUM_DEFAULT'
 
+export interface IGetOrderNumDefault {
+	type: typeof GET_ORDER_NUM_DEFAULT;
+}
 export interface IGetOrderNum {
 	type: typeof GET_ORDER_NUM;
 }
@@ -25,7 +29,7 @@ export interface IDropOrderNum {
 	type: typeof DROP_ORDER_NUM;
 }
 
-export type IOrderAction = | IGetOrderNum | IGetOrderNumSuccess | IGetOrderNumFail | IDropOrderNum ;
+export type IOrderAction = | IGetOrderNum | IGetOrderNumSuccess | IGetOrderNumFail | IDropOrderNum | IGetOrderNumDefault;
 
 export function sendOrderAndGetResult(data: TIngredient[]) {
     return function(dispatch: AppDispatch) {

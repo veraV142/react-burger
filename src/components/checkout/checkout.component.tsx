@@ -28,9 +28,10 @@ export const Checkout: FC  = () =>
     const onSendOrderAndGetResult = () => 
     {
         const refreshToken = getCookie('refreshToken');
-        if (refreshToken === null || refreshToken === '') {
+        if (refreshToken === null || refreshToken === '' || refreshToken === undefined) {
             dispatch({ type: LOGOUT_CLEAR });
             navigate('/logout');
+            return;
         }
         const ingredients: Array<TIngredient> = [];
         if (buhData !== undefined) {
@@ -64,12 +65,12 @@ export const Checkout: FC  = () =>
             <div className={`mr-10 mt-4`}>
                 <CurrencyIcon type="primary" />
             </div>
-            <Button htmlType="button" type="primary" size="medium" onClick={onSendOrderAndGetResult}>
+            <Button htmlType="button" type="primary" size="medium" onClick={onSendOrderAndGetResult} data-cy={`order-submit`}>
                 Оформление заказа
             </Button>
             {
                 orderNum != null && (
-                    <Modal header={'Детали ингредиента'} showed={orderNum != null} onClose={closeOrder}>
+                    <Modal header={''} showed={orderNum != null} onClose={closeOrder}>
                         <OrderDetails/>
                     </Modal>
                 )
