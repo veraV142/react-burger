@@ -4,7 +4,7 @@ import { FEED_CLOSE, FEED_ERROR, FEED_INIT, FEED_MESSAGE, FEED_DEFAULT } from ".
 describe('feed reducer', () => {
 
     it('should return the initial state', () => {
-        expect(reducer(undefined, { type:FEED_DEFAULT })).toEqual([initialState])
+        expect(reducer(undefined, { type:FEED_DEFAULT })).toEqual(initialState)
       })
 
     it('should handle FEED_INIT', () => {
